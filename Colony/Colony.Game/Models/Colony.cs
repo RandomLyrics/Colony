@@ -136,7 +136,7 @@ namespace Colony.Game.Models
         //PROCESS
         public void Process(AdvanceType advance, SupportType support)
         {
-            var v1 = Technology > 0 ? (Technology * Industry) / (Technology + Industry) : 1;
+            var v1 = Technology > 0 ? (Technology * Industry) / (Technology + Industry) : 0;
             if (advance == AdvanceType.Food)
             {
                 this.Food = Food + GLOBALS.AdvFoodCount + v1; //+ (Industry * GLOBALS.IndustryMaterialsWage) 
