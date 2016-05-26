@@ -5,7 +5,7 @@ VisualStudioVersion = 14.0.24720.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Colony", "Colony\Colony.csproj", "{10AE6D9D-4DFD-4AF7-B95C-63BD45C0F6E5}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Colony.Game", "Colony.Game\Colony.Game.csproj", "{104D6901-6676-4899-9359-054C0C5F14EF}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MoonColony.Game", "Colony.Game\MoonColony.Game.csproj", "{104D6901-6676-4899-9359-054C0C5F14EF}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

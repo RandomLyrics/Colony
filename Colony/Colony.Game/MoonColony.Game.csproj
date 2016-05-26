@@ -43,6 +43,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="GLOBALS.cs" />
+    <Compile Include="Helpers\CloneHelper.cs" />
+    <Compile Include="Helpers\CalculateHelper.cs" />
+    <Compile Include="Models\Colony.cs" />
+    <Compile Include="Models\Enums\ColonyType.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
