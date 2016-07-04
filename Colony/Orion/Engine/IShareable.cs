@@ -4,11 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Colony.Game.Models.Enums
+namespace Orion.Engine
 {
-    public enum ColonyType
+    public interface IShareable
     {
-        Democration,
-        Authoritarian
     }
 }
