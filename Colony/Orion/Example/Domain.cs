@@ -16,7 +16,7 @@ namespace Orion.Example
 
         public Domain()
         {
-
+            FromOrion.Injec(this);
         }
     }
 }
