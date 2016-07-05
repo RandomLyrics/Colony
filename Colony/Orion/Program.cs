@@ -1,4 +1,5 @@
-﻿using Orion.Example;
+﻿using Orion.Engine;
+using Orion.Example;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,7 +12,7 @@ namespace Orion
     {
         static void Main(string[] args)
         {
-            var ss = new Domain();
+            var _ = new Domain();
         }
     }
 }

@@ -12,11 +12,15 @@ namespace Orion.Example
         public Data Data { get; set; }
         public Logic Logic { get; set; }
 
-        public int MyProperty { get; set; }
+        public int dummy { get; set; }
 
         public Domain()
         {
-            FromOrion.Injec(this);
+            this.Cache = new Cache();
+            this.InjectProperties(this, Cache);
+            //Cache.Insert(ref Data);
+            //Cache.Insert(ref Logic);
+            //FromCache.Inject(this);
         }
     }
 }

@@ -10,7 +10,7 @@ namespace Orion.Engine
     {
         //PROPS
         private Cache _cache;
-        public Cache Cache
+        protected Cache Cache
         {
             get { return _cache; }
             set { _cache = value; }
@@ -19,8 +19,8 @@ namespace Orion.Engine
         //CTORS
         public Shared()
         {
-            this._cache = new Cache();
-            InjectProperties();
+           // this._cache = new Cache();
+            //InjectProperties();
         }
         public Shared(Cache cache)
         {
@@ -28,8 +28,12 @@ namespace Orion.Engine
         }
 
         //METHODS
-        private void InjectProperties()
+        protected void InjectProperties<T>(T obj, Cache cache)
         {
+            if (!Cache.ContainsKey<T>())
+            {
+
+            }
             Injector.Inject(this, Cache);
         }
     }

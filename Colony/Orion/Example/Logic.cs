@@ -9,6 +9,7 @@ namespace Orion.Example
 {
     public class Logic: Shared
     {
-
+        public LogicUser User { get; set; }
+        public LogicCompany Company { get; set; }
     }
 }

@@ -44,13 +44,18 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Engine\Cache.cs" />
-    <Compile Include="Engine\FromOrion.cs" />
+    <Compile Include="Engine\FromCache.cs" />
     <Compile Include="Engine\Injector.cs" />
     <Compile Include="Engine\IShareable.cs" />
     <Compile Include="Engine\Shared.cs" />
+    <Compile Include="Example\DataCompany.cs" />
+    <Compile Include="Example\DataUser.cs" />
     <Compile Include="Example\Domain.cs" />
     <Compile Include="Example\Data.cs" />
     <Compile Include="Example\Logic.cs" />
+    <Compile Include="Example\LogicBase.cs" />
+    <Compile Include="Example\LogicCompany.cs" />
+    <Compile Include="Example\LogicUser.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

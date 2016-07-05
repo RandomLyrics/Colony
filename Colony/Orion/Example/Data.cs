@@ -9,6 +9,7 @@ namespace Orion.Example
 {
     public class Data: Shared
     {
-
+        public DataUser User { get; set; }
+        public DataCompany Company { get; set; }
     }
 }

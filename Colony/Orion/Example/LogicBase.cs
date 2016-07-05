@@ -3,14 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Orion.Engine;
 
-namespace Orion.Engine
+namespace Orion.Example
 {
-    public class FromOrion
+    public class LogicBase: Shared
     {
-        public static void Inject<T>(T obj)
-        {
-
-        }
+        public Data Data { get; set; }
     }
 }
