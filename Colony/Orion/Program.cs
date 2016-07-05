@@ -13,6 +13,7 @@ namespace Orion
         static void Main(string[] args)
         {
             var _ = new Domain();
+            var ads = _.Data;
         }
     }
 }

@@ -9,7 +9,7 @@ namespace Orion.Engine
     public class Cache
     {
         private IDictionary<Type, IShareable> _cache;
-        public IDictionary<Type, IShareable> Dic { get; }
+        public IDictionary<Type, IShareable> Dic { get { return _cache; } }
 
         public IShareable this[Type x]
         {
@@ -29,6 +29,12 @@ namespace Orion.Engine
             _cache = cache;
         }
 
+        //public void ToCache(Cache cache)
+        //{
+        //    //if (cache._cache == null)
+        //    //    this._cache = new Dictionary<Type, IShareable>();
+        //    this._cache = cache._cache;
+        //}
         //public void Inject<T>(T obj)
 
         //public void Insert<T>(ref T obj) where T : new()

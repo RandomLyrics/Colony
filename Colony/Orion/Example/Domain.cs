@@ -14,10 +14,18 @@ namespace Orion.Example
 
         public int dummy { get; set; }
 
-        public Domain()
+        public override void Before()
         {
             this.Cache = new Cache();
-            this.InjectProperties(this, Cache);
+            this.InjectProperties(this);
+        }
+        public Domain() : base()
+        {
+            Data = new Data() { Cache = this.Cache };
+            // this.Cache = new Cache();
+            //this.ToCache(Cache);
+            //this.InjectProperties
+            //this.InjectProperties(this, Cache);
             //Cache.Insert(ref Data);
             //Cache.Insert(ref Logic);
             //FromCache.Inject(this);

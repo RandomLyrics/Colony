@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
+using System.Linq.Dynamic;
 using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
@@ -15,25 +16,55 @@ namespace Orion.Engine
         private static IDictionary<Type, Func<Cache, IShareable>> _classConstructors = new Dictionary<Type, Func<Cache, IShareable>>();
         
 
-        public static void Inject<T>(T obj, Cache cache)
+        public static void LoadProperties<T>()
         {
-            var type = obj.GetType();
+            var type = typeof(T);
             if (!_classProperties.ContainsKey(type))
                 _classProperties[type] = type.GetProperties().Where(p => typeof(IShareable).IsAssignableFrom(p.PropertyType));
 
-            if (cache == null)
+            //if (cache == null)
+            //{
+            //    foreach (var prop in _classProperties[type])
+            //    {
+            //        prop.SetValue(obj, CreateNew(obj, prop, cache));
+            //    }
+            //} else
+            //{
+            //    foreach (var prop in _classProperties[type])
+            //    {
+            //        prop.SetValue(obj, CreateNew(obj, prop, cache));
+            //    }
+            //}
+        }
+
+        internal static void FillClass<T>(T obj)
+        {
+            throw new NotImplementedException();
+        }
+
+        public static void GenerateConstructors<T>() where T: Shared, new()
+        {
+            foreach (var prop in _classProperties[typeof(T)])
             {
-                foreach (var prop in _classProperties[type])
-                {
-                    prop.SetValue(obj, CreateNew(obj, prop, cache));
-                }
-            } else
-            {
-                foreach (var prop in _classProperties[type])
-                {
-                    prop.SetValue(obj, CreateNew(obj, prop, cache));
-                }
+                Expression<Func<T, IShareable>> exp = (obj) => obj = new T();
+
+                var ctor = Expression.New(prop.PropertyType);
+                //var sad = DynamicExpression.ParseLambda
+                //var cccc = NewArrayExpression.NewArrayBounds(prop.PropertyType, Expression.Assign(Expression.Property()))
+                var obj = Expression.Constant(prop.PropertyType);
+                var property = Expression.Property(obj, "Cache");
+                var elder = Expression.Parameter(typeof(T), typeof(T).Name);
+                var caheprop = Expression.Property(elder, "Cache");
+                var assign = Expression.Assign(property, caheprop);
+
+                var block = Expression.Block(ctor, assign, obj);
+                var expr = Expression.Lambda<Func<IShareable>>(ctor);
+
+                var asds = expr.Compile()();
+                //_classConstructors[type.PropertyType] = 
             }
+            //var type = typeof(T);
+            
         }
 
         public static IShareable CreateNew<T>(T obj, PropertyInfo prop, Cache cache)
