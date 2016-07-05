@@ -72,7 +72,7 @@ namespace Colony.Game.Models
         private void CalculatePopulationIncome()
         {
             var v1 = Happiness * Liberty;
-            this.PopulationIncome = (Population * v1);// * GLOBALS.BreedingRate; //population + income
+            this.PopulationIncome = (Population * v1)* GLOBALS.BreedingRate;// * GLOBALS.BreedingRate; //population + income
         }
         private void CalculateMoneyIncome()
         {
@@ -105,14 +105,18 @@ namespace Colony.Game.Models
         private void CalculateHappiness()
         {
             var pop = Population;
-            var x1 = Food - pop;
-            var x2 = Houses - pop;
-            var v1 = Math.Min(x1, x2);
-            if (v1 > 0) v1 = Math.Max(x1, x2);
-            var f1 = (v1) / pop;
-            var f2 = (Culture - Industry) / pop;
-            var fhap = f1 + f2;
+            var x1 = Houses / pop + Food / pop;
+            var x2 = Culture / pop - Industry / pop;
+            var fhap = ((Houses + Food)-(pop*2)) /pop;
             this.Happiness = CalculateHelper.Limit(fhap, -1.0, 1.0);
+            //var x1 = Food - pop;
+            //var x2 = Houses - pop;
+            //var v1 = Math.Min(x1, x2);
+            //if (v1 > 0) v1 = Math.Max(x1, x2);
+            //var f1 = (v1) / pop;
+            //var f2 = (Culture - Industry) / pop;
+            //var fhap = f1 + f2;
+            //this.Happiness = CalculateHelper.Limit(fhap, -1.0, 1.0);
         }
         private void CalculateMorality()
         {

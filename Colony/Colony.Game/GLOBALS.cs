@@ -29,7 +29,7 @@ namespace Colony.Game
         /// <summary>
         /// population * beedingRate = income
         /// </summary>
-        public static double BreedingRate = 1.2; //
+        public static double BreedingRate = 0.2; //
 
         //ADVANCED
         public static double AdvFoodCount = 1;

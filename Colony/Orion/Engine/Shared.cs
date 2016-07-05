@@ -13,7 +13,7 @@ namespace Orion.Engine
         public Cache Cache
         {
             get { return _cache; }
-           // set { _cache = value; }
+            set { _cache = value; }
         }
 
         //CTORS
