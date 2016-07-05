@@ -28,9 +28,14 @@ namespace Orion.Engine
             {
                 foreach (var prop in _classProperties[type])
                 {
-                    prop.SetValue(obj, Activator.CreateInstance(type, cache));
+                    prop.SetValue(obj, Convertt(Activator.CreateInstance(prop.PropertyType.BaseType, cache), prop.PropertyType));
                 }
             }
+        }
+
+        public static dynamic Convertt(dynamic source, Type dest)
+        {
+            return Convert.ChangeType(source, dest);
         }
     }
 }

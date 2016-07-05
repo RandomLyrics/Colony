@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Orion.Example
 {
-    public class Logic: IShareable
+    public class Logic: Shared
     {
 
     }

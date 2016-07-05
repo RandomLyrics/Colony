@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Orion.Example
 {
-    public class Data: Shared, IShareable
+    public class Data: Shared
     {
 
     }
