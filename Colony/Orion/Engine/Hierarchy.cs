@@ -2,18 +2,18 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
-using System.Linq.Dynamic;
 using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace Orion.Engine
 {
-    public static class Injector
+    public static class Hierarchy
     {
         //private static IEnumerable<PropertyInfo> _Properties = new List<PropertyInfo>();
         private static IDictionary<Type, IEnumerable<PropertyInfo>> _classProperties = new Dictionary<Type, IEnumerable<PropertyInfo>>();
-        private static IDictionary<Type, Func<Cache, IShareable>> _classConstructors = new Dictionary<Type, Func<Cache, IShareable>>();
+        private static IDictionary<Type, Func<IShareable>> _classConstructors = new Dictionary<Type, Func<IShareable>>();
+        private static IDictionary<Type, IShareable> _builded = new Dictionary<Type, IShareable>();
         
 
         public static void LoadProperties<T>()
@@ -37,6 +37,48 @@ namespace Orion.Engine
             //}
         }
 
+        internal static void Build<T>(T domain) where T: Shared
+        {
+            if (!_builded.ContainsKey(typeof(T)))
+            {
+                _builded[typeof(T)] = domain.Build<T>();
+            }else
+            {
+                domain = (T)_builded[typeof(T)];
+            }
+        }
+
+        internal static IEnumerable<PropertyInfo> GetProperties(IShareable obj)
+        {
+            var type = obj.GetType();
+            if (!_classProperties.ContainsKey(type))
+            {
+                _classProperties[type] = type.GetProperties().Where(p => (typeof(IShareable).IsAssignableFrom(p.PropertyType)));
+            }
+            return _classProperties[type];
+        }
+
+        internal static Action<IShareable, IShareable> GetSetter(PropertyInfo prop)
+        {
+            //return null;
+            var instance = Expression.Parameter(prop.ReflectedType, "instance");
+            var property = Expression.Parameter(prop.PropertyType, "property");
+            var call = Expression.Call(instance, prop.GetSetMethod(), property);
+            //var parameters = new ParameterExpression
+            return null;
+        }
+
+        internal static IShareable New(Type type)
+        {
+            if (!_classConstructors.ContainsKey(type))
+            {
+                var ctor = Expression.New(type);
+                var expr = Expression.Lambda<Func<IShareable>>(ctor);
+                _classConstructors[type] = expr.Compile();
+            }
+            return _classConstructors[type]();
+        }
+
         internal static void FillClass<T>(T obj)
         {
             throw new NotImplementedException();
@@ -46,7 +88,7 @@ namespace Orion.Engine
         {
             foreach (var prop in _classProperties[typeof(T)])
             {
-                Expression<Func<T, IShareable>> exp = (obj) => obj = new T();
+                //Expression<Func<T, IShareable>> exp = (x) => x.Cache = ;
 
                 var ctor = Expression.New(prop.PropertyType);
                 //var sad = DynamicExpression.ParseLambda
@@ -86,7 +128,7 @@ namespace Orion.Engine
                 returnExpression,
                 returnLabel);
 
-            _classConstructors[type] = Expression.Lambda<Func<Cache, IShareable>>(block, CacheInput).Compile();
+            //_classConstructors[type] = Expression.Lambda<Func<Cache, IShareable>>(block, CacheInput).Compile();
 
             return null;
         }

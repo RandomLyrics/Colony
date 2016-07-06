@@ -8,5 +8,9 @@ namespace Orion.Example
 {
     public class LogicUser: LogicBase
     {
+        public void dsad()
+        {
+            
+        }
     }
 }

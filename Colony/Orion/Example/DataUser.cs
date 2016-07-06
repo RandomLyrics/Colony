@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Orion.Example
 {
-    public class DataUser
+    public class DataUser: DataBase
     {
     }
 }

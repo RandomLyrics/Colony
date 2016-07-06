@@ -45,9 +45,11 @@
   <ItemGroup>
     <Compile Include="Engine\Cache.cs" />
     <Compile Include="Engine\FromCache.cs" />
-    <Compile Include="Engine\Injector.cs" />
+    <Compile Include="Engine\Hierarchy.cs" />
     <Compile Include="Engine\IShareable.cs" />
     <Compile Include="Engine\Shared.cs" />
+    <Compile Include="Example\BIG.cs" />
+    <Compile Include="Example\DataBase.cs" />
     <Compile Include="Example\DataCompany.cs" />
     <Compile Include="Example\DataUser.cs" />
     <Compile Include="Example\Domain.cs" />

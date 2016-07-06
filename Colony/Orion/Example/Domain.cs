@@ -1,6 +1,7 @@
 ﻿using Orion.Engine;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -16,12 +17,24 @@ namespace Orion.Example
 
         public override void Before()
         {
-            this.Cache = new Cache();
-            this.InjectProperties(this);
+            
+            //this.FillProperties(this);
         }
-        public Domain() : base()
+        public Domain()
         {
-            Data = new Data() { Cache = this.Cache };
+            this.Cache = new Cache();
+            for (int i = 0; i < 10; i++)
+            {
+                Stopwatch timer = new Stopwatch();
+                timer.Start();
+
+                Hierarchy.Build(this);
+                //var ss = this.Build<Domain>();
+
+                timer.Stop();
+                Console.WriteLine("Elpased: " + timer.ElapsedTicks);
+            }
+            // Data = new Data() { Cache = this.Cache };
             // this.Cache = new Cache();
             //this.ToCache(Cache);
             //this.InjectProperties
