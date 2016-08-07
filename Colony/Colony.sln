@@ -11,7 +11,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Orion", "Orion\Orion.csproj
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sandbox", "Sandbox\Sandbox.csproj", "{86A3C546-4EF6-4814-A182-DBFF9860F79B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OTWv", "..\..\OnTopWindow\OTWv\OTWv.csproj", "{88713A6C-4555-438C-ABA1-96AE5CEE01F0}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OTWv", "OTWv\OTWv.csproj", "{88713A6C-4555-438C-ABA1-96AE5CEE01F0}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
