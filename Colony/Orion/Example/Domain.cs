@@ -12,14 +12,7 @@ namespace Orion.Example
     {
         public Data Data { get; set; }
         public Logic Logic { get; set; }
-
-        public int dummy { get; set; }
-
-        public override void Before()
-        {
-            
-            //this.FillProperties(this);
-        }
+        
         public Domain()
         {
             this.Cache = new Cache();
@@ -34,14 +27,6 @@ namespace Orion.Example
                 timer.Stop();
                 Console.WriteLine("Elpased: " + timer.ElapsedTicks);
             }
-            // Data = new Data() { Cache = this.Cache };
-            // this.Cache = new Cache();
-            //this.ToCache(Cache);
-            //this.InjectProperties
-            //this.InjectProperties(this, Cache);
-            //Cache.Insert(ref Data);
-            //Cache.Insert(ref Logic);
-            //FromCache.Inject(this);
         }
     }
 }

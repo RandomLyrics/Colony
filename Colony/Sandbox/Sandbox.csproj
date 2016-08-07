@@ -4,12 +4,12 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{B72D2C8B-FBA7-42D2-B397-9635D864BFFA}</ProjectGuid>
-    <OutputType>Library</OutputType>
+    <ProjectGuid>{86A3C546-4EF6-4814-A182-DBFF9860F79B}</ProjectGuid>
+    <OutputType>Exe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Orion</RootNamespace>
-    <AssemblyName>Orion</AssemblyName>
-    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <RootNamespace>Sandbox</RootNamespace>
+    <AssemblyName>Sandbox</AssemblyName>
+    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
   </PropertyGroup>
@@ -32,9 +32,6 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
-  <PropertyGroup>
-    <StartupObject />
-  </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -46,25 +43,15 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Engine\Cache.cs" />
-    <Compile Include="Engine\Hierarchy.cs" />
-    <Compile Include="Engine\IShareable.cs" />
-    <Compile Include="Engine\Shared.cs" />
-    <Compile Include="Example\BIG.cs" />
-    <Compile Include="Example\DataBase.cs" />
-    <Compile Include="Example\DataCompany.cs" />
-    <Compile Include="Example\DataUser.cs" />
-    <Compile Include="Example\Domain.cs" />
-    <Compile Include="Example\Data.cs" />
-    <Compile Include="Example\Logic.cs" />
-    <Compile Include="Example\LogicBase.cs" />
-    <Compile Include="Example\LogicCompany.cs" />
-    <Compile Include="Example\LogicUser.cs" />
+    <Compile Include="DynamicLambda\Example\ExampleRun.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="DynamicLambda\Engine\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
