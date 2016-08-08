@@ -1,47 +1,47 @@
 ﻿using Orion.Engine;
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace Orion.Example
 {
-    public class Domain: Shared
+    public class Context : IShareable
+    {
+
+    }
+
+    public class Lepo<T> : IShareable
+    {
+        public Data Data { get; set; }
+    }
+    public class Repo<T> : IShareable
+    {
+        public Context Context { get; set; }
+    }
+
+    public class Logic : IShareable
+    {
+        public Lepo<int> User { get; set; }
+        public Lepo<double> Comapny { get; set; }
+    }
+    public class Data : IShareable
+    {
+        public Context Context { get; set; }
+        public Repo<int> User { get; set; }
+        public Repo<double> Company { get; set; }
+    }
+
+    public class Domain : IShareable
     {
         public Data Data { get; set; }
         public Logic Logic { get; set; }
 
-        public int dummy { get; set; }
-
-        public override void Before()
-        {
-            
-            //this.FillProperties(this);
-        }
         public Domain()
         {
-            this.Cache = new Cache();
-            for (int i = 0; i < 10; i++)
-            {
-                Stopwatch timer = new Stopwatch();
-                timer.Start();
+            Hierarchy.BuildHierarchy(this);
 
-                Hierarchy.Build(this);
-                //var ss = this.Build<Domain>();
-
-                timer.Stop();
-                Console.WriteLine("Elpased: " + timer.ElapsedTicks);
-            }
-            // Data = new Data() { Cache = this.Cache };
-            // this.Cache = new Cache();
-            //this.ToCache(Cache);
-            //this.InjectProperties
-            //this.InjectProperties(this, Cache);
-            //Cache.Insert(ref Data);
-            //Cache.Insert(ref Logic);
-            //FromCache.Inject(this);
         }
     }
 }

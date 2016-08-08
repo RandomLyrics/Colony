@@ -4,11 +4,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{447FC95C-E8AF-4433-ADDF-FED2478754CE}</ProjectGuid>
+    <ProjectGuid>{1E4BB99B-F53A-4C19-8AF3-6527DAD727D0}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Orion</RootNamespace>
-    <AssemblyName>Orion</AssemblyName>
+    <RootNamespace>Hermes</RootNamespace>
+    <AssemblyName>Hermes</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -40,11 +40,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Class1.cs" />
-    <Compile Include="Engine\Cache.cs" />
-    <Compile Include="Engine\Hierarchy.cs" />
-    <Compile Include="Engine\IShareable.cs" />
-    <Compile Include="Example\Domain.cs" />
+    <Compile Include="SpeedTimer.cs" />
+    <Compile Include="Stats.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

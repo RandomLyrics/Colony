@@ -8,6 +8,7 @@ namespace Orion.Engine
 {
     public class Cache
     {
+        bool InUse = false;
         private IDictionary<Type, IShareable> _cache;
         public IDictionary<Type, IShareable> Dic { get { return _cache; } }
 
@@ -20,31 +21,7 @@ namespace Orion.Engine
         public bool ContainsKey<T>() { return (_cache.ContainsKey(typeof(T))); }
         public bool ContainsKey(Type type) { return (_cache.ContainsKey(type)); }
 
-        public Cache()
-        {
-            _cache = new Dictionary<Type, IShareable>();
-        }
-        public Cache(IDictionary<Type, IShareable> cache)
-        {
-            _cache = cache;
-        }
-
-        //public void ToCache(Cache cache)
-        //{
-        //    //if (cache._cache == null)
-        //    //    this._cache = new Dictionary<Type, IShareable>();
-        //    this._cache = cache._cache;
-        //}
-        //public void Inject<T>(T obj)
-
-        //public void Insert<T>(ref T obj) where T : new()
-        //{
-        //    // if (!_cache.ContainsKey(typeof(T)))
-        //    //  {
-        //    obj = new T();
-        //    this._cache[typeof(T)] = (IShareable)obj;
-        //    // }
-
-        //}
+        public Cache() { _cache = new Dictionary<Type, IShareable>(); }
+        public Cache(IDictionary<Type, IShareable> cache) { _cache = cache; }
     }
 }

@@ -4,15 +4,17 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{447FC95C-E8AF-4433-ADDF-FED2478754CE}</ProjectGuid>
-    <OutputType>Library</OutputType>
+    <ProjectGuid>{B72D2C8B-FBA7-42D2-B397-9635D864BFFA}</ProjectGuid>
+    <OutputType>Exe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Orion</RootNamespace>
     <AssemblyName>Orion</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
@@ -22,6 +24,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>bin\Release\</OutputPath>
@@ -40,12 +43,31 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Class1.cs" />
     <Compile Include="Engine\Cache.cs" />
     <Compile Include="Engine\Hierarchy.cs" />
     <Compile Include="Engine\IShareable.cs" />
+    <Compile Include="Engine\Shared.cs" />
+    <Compile Include="Example\BIG.cs" />
+    <Compile Include="Example\DataBase.cs" />
+    <Compile Include="Example\DataCompany.cs" />
+    <Compile Include="Example\DataUser.cs" />
     <Compile Include="Example\Domain.cs" />
+    <Compile Include="Example\Data.cs" />
+    <Compile Include="Example\Logic.cs" />
+    <Compile Include="Example\LogicBase.cs" />
+    <Compile Include="Example\LogicCompany.cs" />
+    <Compile Include="Example\LogicUser.cs" />
+    <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Hermes\Hermes.csproj">
+      <Project>{1E4BB99B-F53A-4C19-8AF3-6527DAD727D0}</Project>
+      <Name>Hermes</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

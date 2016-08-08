@@ -3,14 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using OrionOld.Engine;
 
-namespace Orion.Example
+namespace OrionOld.Example
 {
-    public class LogicUser: LogicBase
+    public class LogicBase: Shared
     {
-        public void dsad()
-        {
-            
-        }
+        public Data Data { get; set; }
     }
 }

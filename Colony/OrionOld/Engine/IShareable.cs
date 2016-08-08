@@ -4,9 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Orion.Example
+namespace OrionOld.Engine
 {
-    public class DataCompany: DataBase
+    public interface IShareable
     {
+        Cache Cache { get; set; }
+        void BuildHierarchy();
     }
 }

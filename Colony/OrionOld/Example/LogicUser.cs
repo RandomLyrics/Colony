@@ -4,9 +4,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Orion.Example
+namespace OrionOld.Example
 {
-    public class LogicCompany: LogicBase
+    public class LogicUser: LogicBase
     {
+        public void dsad()
+        {
+            
+        }
     }
 }

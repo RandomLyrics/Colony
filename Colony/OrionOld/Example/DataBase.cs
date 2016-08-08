@@ -1,12 +1,14 @@
-﻿using System;
+﻿using OrionOld.Engine;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Orion.Engine
+namespace OrionOld.Example
 {
-    public interface IShareable
+    public class DataBase: Shared
     {
+        
     }
 }

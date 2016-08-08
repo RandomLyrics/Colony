@@ -3,12 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Orion.Engine;
 
-namespace Orion.Example
+namespace OrionOld.Example
 {
-    public class LogicBase: Shared
+    public class LogicCompany: LogicBase
     {
-        public Data Data { get; set; }
     }
 }

@@ -4,13 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Orion.Engine
+namespace OrionOld.Example
 {
-    public class FromCache
+    public class DataCompany: DataBase
     {
-        public static void Inject<T>(T obj)
-        {
-
-        }
     }
 }
