@@ -56,12 +56,15 @@ namespace OTWv.Apollo
         #endregion
 
         //END-DLL
+        private const int AUTO_BORDER_HEIGHT = 40;
+        private const int AUTO_OPACITY = 30;
         private IntPtr _window;
         public IntPtr Win { get { return _window; } }
         private IntPtr _handle;
         private Rect _rect;
 
-        public bool IsMouseOver = false;
+        public bool IsHidden = false;
+        public bool IsMouseHovering = false;
 
         public Window(IntPtr handle)
         {
@@ -79,18 +82,28 @@ namespace OTWv.Apollo
         public bool OnTop { get; set; }
         public bool Autohide { get; set; }
 
+
+        public void SetWindowConfig(byte oval, bool clickthrough)
+        {
+            if (clickthrough)
+                SetWindowLong(_window, GWL_EXSTYLE, GetWindowLong(_handle, GWL_EXSTYLE) ^ WS_EX_LAYERED | 0x20);
+            else
+                SetWindowLong(_window, GWL_EXSTYLE, GetWindowLong(_handle, GWL_EXSTYLE) ^ WS_EX_LAYERED);
+            SetLayeredWindowAttributes(_window, 0, oval, LWA_ALPHA);
+        }
         public void SetOpacity(byte val, bool implicty = false)
         {
             if (!implicty)
                 Opacity = val;
 
             SetWindowLong(_window, GWL_EXSTYLE, GetWindowLong(_handle, GWL_EXSTYLE) ^ WS_EX_LAYERED);
-            SetLayeredWindowAttributes(_window, 0, Opacity, LWA_ALPHA);
         }
-        public void SetClickthrough(bool enabled)
+        public void SetClickthrough(bool enabled, bool implicty = false)
         {
             if (enabled)
             {
+                if (!implicty)
+                    Clickthrough = enabled;
                 SetWindowLong(_window, GWL_EXSTYLE, GetWindowLong(_handle, GWL_EXSTYLE) ^ WS_EX_LAYERED | 0x20);
                 SetLayeredWindowAttributes(_window, 0, Opacity, LWA_ALPHA);
             }
@@ -106,25 +119,27 @@ namespace OTWv.Apollo
             var pt = Control.MousePosition;
             if (isRectangelContainPoint(_rect, pt))
             {
-                IsMouseOver = true;
                 return true;
             }
             else
             {
-                IsMouseOver = false;
                 return false;
             }
         }
-        public void OnTick()
-        {
-            Task.Delay(100);
+        //public Task OnTick()
+        //{
 
-        }
+        //}
 
 
+        //private Task _tickTask;
+        //public void RunTickClock()
+        //{
+        //    Task.Run(OnTick);
+        //}
         public bool isRectangelContainPoint(Rect rec, Point pt)
         {
-            if (pt.X >= rec.Left && pt.X <= rec.Right && pt.Y <= rec.Bottom && pt.Y >= rec.Top)
+            if (pt.X >= rec.Left && pt.X <= rec.Right && pt.Y <= rec.Bottom && pt.Y >= rec.Top + AUTO_BORDER_HEIGHT)
                 return true;
             else
                 return false;

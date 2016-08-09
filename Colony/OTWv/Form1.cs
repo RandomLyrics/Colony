@@ -63,7 +63,7 @@ namespace OTWv
         {
             InitializeComponent();
             hScrollBar1.Value = 255;
-           _cursor = new Cursor(Cursor.Current.Handle);
+            _cursor = new Cursor(Cursor.Current.Handle);
             timer1.Enabled = true;
         }
 
@@ -71,7 +71,7 @@ namespace OTWv
         {
             _processesDic.Clear();
             comboBox1.Items.Clear();
-            
+
             foreach (var proc in Process.GetProcesses())
             {
                 var name = proc.MainWindowTitle;
@@ -93,7 +93,7 @@ namespace OTWv
         private void button2_Click(object sender, EventArgs e)
         {
             if (comboBox1.SelectedItem != null)
-            {   
+            {
                 var item = _processesDic[comboBox1.SelectedItem.ToString()];
                 if (!_windowsDic.ContainsKey(item))
                 {
@@ -103,35 +103,14 @@ namespace OTWv
                 window.SetOnTop(true);
                 window.SetOpacity((byte)hScrollBar1.Value);
                 window.SetClickthrough(checkBox1.Checked);
-                ////    var opacity = (byte)hScrollBar1.Value;
-                ////var window = item.MainWindowHandle;
-                //////ON TOP
-                ////SetWindowPos(window, HWND_TOPMOST, 0, 0, 0, 0, TOPMOST_FLAGS);
-                ////if (checkBox1.Checked)
-                ////{
-                ////    //OPACITY
-                ////    SetWindowLong(window, GWL_EXSTYLE, GetWindowLong(Handle, GWL_EXSTYLE) ^ WS_EX_LAYERED | 0x20);
-                ////    SetLayeredWindowAttributes(window, 0, opacity, LWA_ALPHA);
-                ////}
-                ////else
-                ////{
-                ////    //OPACITY
-                ////    SetWindowLong(window, GWL_EXSTYLE, GetWindowLong(Handle, GWL_EXSTYLE) ^ WS_EX_LAYERED);
-                ////    SetLayeredWindowAttributes(window, 0, opacity, LWA_ALPHA);
-                ////}
-                ////var rect = new Rect();
-                ////GetWindowRect(window, ref rect);
-                ////label1.Text = rect.Top.ToString();
             }
-            //Form asd = new Form();
-            //asd.cli
-           
+
         }
 
         //refresh
         private void button3_Click(object sender, EventArgs e)
         {
-            
+
         }
 
         private void comboBox1_DropDown(object sender, EventArgs e)
@@ -146,7 +125,7 @@ namespace OTWv
 
         private void webBrowser1_DocumentCompleted(object sender, WebBrowserDocumentCompletedEventArgs e)
         {
-           
+
         }
 
         private void label1_Click(object sender, EventArgs e)
@@ -161,12 +140,12 @@ namespace OTWv
 
         private void textBox1_TextChanged(object sender, EventArgs e)
         {
-           // Gaga((TextBox)sender);
+            // Gaga((TextBox)sender);
         }
 
         private void Gaga(TextBox sender)
         {
-           // var asd = sender;
+            // var asd = sender;
         }
 
         private void checkBox1_CheckedChanged(object sender, EventArgs e)
@@ -188,27 +167,49 @@ namespace OTWv
         public Cursor _cursor { get; set; }
         private void timer1_Tick(object sender, EventArgs e)
         {
-            //foreach (var win in _windowsDic)
+            foreach (var winkp in _windowsDic)
+            {
+                var win = winkp.Value;
+                if (win.IsMouseHover())
+                {
+                    win.IsMouseHovering = true;
+                    if (!win.IsHidden)
+                    {
+                        win.SetWindowConfig(30, true);
+                        win.IsHidden = true;
+                    }
+                }
+                else
+                {
+                    win.IsMouseHovering = false;
+                    if (win.IsHidden && !win.IsMouseHovering)
+                    {
+                        win.SetWindowConfig(win.Opacity, win.Clickthrough);
+                        win.IsHidden = false;
+                    }
+                }
+            }
+        }
+        private void Form1_Resize_1(object sender, EventArgs e)
+        {
+            if (FormWindowState.Minimized == this.WindowState)
+            {
+                notifyIcon1.Visible = true;
+                //notifyIcon1.ShowBalloonTip(500, "OTW", "topp", ToolTipIcon.Info);
+                this.ShowInTaskbar = false;
+            }
+
+            //else if (FormWindowState.Normal == this.WindowState)
             //{
-            //    if (win.Value.IsMouseHover())
-            //    {
-            //        win.Value.SetOpacity(50, true);
-            //    }
-            //    else
-            //    {
-            //        if (win.Value.IsMouseOver)
-            //        {
-            //            win.Value.SetOpacity(win.Value.Opacity);
-            //            win.Value.IsMouseOver = false;
-            //        }
-                   
-            //    }
-            //   // Control.Mu
+            //    notifyIcon1.Visible = false;
             //}
-            //label1.Text = "asdasd";
-            //var asd = _cursor;
-           
-            //label1.Text = Control.MousePosition.Y.ToString();
+        }
+
+        private void notifyIcon1_MouseDoubleClick(object sender, MouseEventArgs e)
+        {
+            this.WindowState = FormWindowState.Normal;
+            this.ShowInTaskbar = true;
+            notifyIcon1.Visible = false;
         }
     }
 }
