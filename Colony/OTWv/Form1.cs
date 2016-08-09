@@ -188,23 +188,23 @@ namespace OTWv
         public Cursor _cursor { get; set; }
         private void timer1_Tick(object sender, EventArgs e)
         {
-            foreach (var win in _windowsDic)
-            {
-                if (win.Value.IsMouseHover())
-                {
-                    win.Value.SetOpacity(50, true);
-                }
-                else
-                {
-                    if (win.Value.IsMouseOver)
-                    {
-                        win.Value.SetOpacity(win.Value.Opacity);
-                        win.Value.IsMouseOver = false;
-                    }
+            //foreach (var win in _windowsDic)
+            //{
+            //    if (win.Value.IsMouseHover())
+            //    {
+            //        win.Value.SetOpacity(50, true);
+            //    }
+            //    else
+            //    {
+            //        if (win.Value.IsMouseOver)
+            //        {
+            //            win.Value.SetOpacity(win.Value.Opacity);
+            //            win.Value.IsMouseOver = false;
+            //        }
                    
-                }
-               // Control.Mu
-            }
+            //    }
+            //   // Control.Mu
+            //}
             //label1.Text = "asdasd";
             //var asd = _cursor;
            
