@@ -11,6 +11,15 @@ namespace Sandbox.DynamicLambda.Example
     {
         public void Run()
         {
+            var c = new List<int>();
+            for (int i = 0; i < 50; i++)
+            {
+                var y = ((i * 25) * 1.25d) * 1.33;
+                c.Add((int)y);
+            }
+        }
+        public void Run22()
+        {
             var dic = new Dictionary<int, Task>();
             var que = new Queue<Task>();
             var b1 = GC.GetTotalMemory(false);

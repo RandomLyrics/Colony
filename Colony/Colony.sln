@@ -13,6 +13,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OrionOld", "OrionOld\OrionO
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Orion", "Orion\Orion.csproj", "{447FC95C-E8AF-4433-ADDF-FED2478754CE}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OTWv", "OTWv\OTWv.csproj", "{88713A6C-4555-438C-ABA1-96AE5CEE01F0}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sandbox", "Sandbox\Sandbox.csproj", "{86A3C546-4EF6-4814-A182-DBFF9860F79B}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -39,6 +43,14 @@ Global
 		{447FC95C-E8AF-4433-ADDF-FED2478754CE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{447FC95C-E8AF-4433-ADDF-FED2478754CE}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{447FC95C-E8AF-4433-ADDF-FED2478754CE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{88713A6C-4555-438C-ABA1-96AE5CEE01F0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{88713A6C-4555-438C-ABA1-96AE5CEE01F0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{88713A6C-4555-438C-ABA1-96AE5CEE01F0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{88713A6C-4555-438C-ABA1-96AE5CEE01F0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{86A3C546-4EF6-4814-A182-DBFF9860F79B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{86A3C546-4EF6-4814-A182-DBFF9860F79B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{86A3C546-4EF6-4814-A182-DBFF9860F79B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{86A3C546-4EF6-4814-A182-DBFF9860F79B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
