@@ -27,13 +27,11 @@ namespace Orion.Engine
         }
 
         //GET PROPERTIES
-        private static IDictionary<Type, IEnumerable<PropertyInfo>> _classProperties = new Dictionary<Type, IEnumerable<PropertyInfo>>();
-        private static object _CPGuard = new object();
+        private readonly static IDictionary<Type, IEnumerable<PropertyInfo>> _classProperties = new Dictionary<Type, IEnumerable<PropertyInfo>>();
         internal static IEnumerable<PropertyInfo> GetProperties(Type type)
         {
-            IfDoubleLock(_CPGuard
-                , () => !_classProperties.ContainsKey(type)
-                , () => _classProperties[type] = type.GetProperties().Where(p => (typeof(IShareable).IsAssignableFrom(p.PropertyType))));
+            if (!_classProperties.ContainsKey(type))
+                _classProperties[type] = type.GetProperties().Where(p => (typeof(IShareable).IsAssignableFrom(p.PropertyType)));
             return _classProperties[type];
         }
 

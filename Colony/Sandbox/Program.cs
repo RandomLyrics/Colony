@@ -1,4 +1,5 @@
 ﻿using Sandbox.DynamicLambda.Example;
+using Sandbox.Examples;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,7 +12,8 @@ namespace Sandbox
     {
         static void Main(string[] args)
         {
-            new ExampleRun().Run();
+            //new ExampleRun().Run();
+            new OperatorSQLExample().Run();
         }
     }
 }

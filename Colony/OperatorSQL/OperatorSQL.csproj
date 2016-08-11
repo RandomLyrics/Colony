@@ -4,17 +4,15 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{86A3C546-4EF6-4814-A182-DBFF9860F79B}</ProjectGuid>
-    <OutputType>Exe</OutputType>
+    <ProjectGuid>{1FF8D467-C55B-4AA1-B4CF-08A9B2D2CC4A}</ProjectGuid>
+    <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Sandbox</RootNamespace>
-    <AssemblyName>Sandbox</AssemblyName>
+    <RootNamespace>OperatorSQL</RootNamespace>
+    <AssemblyName>OperatorSQL</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
-    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
@@ -24,7 +22,6 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>bin\Release\</OutputPath>
@@ -43,27 +40,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="DynamicLambda\Example\ExampleRun.cs" />
-    <Compile Include="Examples\OperatorSQLExample.cs" />
-    <Compile Include="Program.cs" />
+    <Compile Include="Core\Query.cs" />
+    <Compile Include="Core\SqlChannel.cs" />
+    <Compile Include="SQL.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
-  <ItemGroup>
-    <None Include="App.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="DynamicLambda\Engine\" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\OperatorSQL\OperatorSQL.csproj">
-      <Project>{1ff8d467-c55b-4aa1-b4cf-08a9b2d2cc4a}</Project>
-      <Name>OperatorSQL</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Orion\Orion.csproj">
-      <Project>{447FC95C-E8AF-4433-ADDF-FED2478754CE}</Project>
-      <Name>Orion</Name>
-    </ProjectReference>
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

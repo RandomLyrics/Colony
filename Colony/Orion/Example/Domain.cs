@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -40,8 +41,28 @@ namespace Orion.Example
 
         public Domain()
         {
-            Hierarchy.BuildHierarchy(this);
+           
+            Action<Domain> TrimAllData = (x) =>
+            {
+                x.Logic.ToString();
+                x.Logic.ToString();
+            };
+            TrimAllData(new Domain());
 
+            //deserializedObject.TrimStringProperties();
+            //deserializedObject.PrimaryOwnerArray.ForEach(m => m.TrimStringProperties());
+            //deserializedObject.DeploymentArray.ForEach(m => m.TrimStringProperties());
+            //var doms = new IEnumerable<Domain>();
+            var asa = new List<Domain>();
+            asa.ForEach((x) =>
+            {
+                x.Data = null;
+                x.Logic = null;
+            });
+            //Hierarchy.BuildHierarchy(this);
+            var ads = new List<PropertyInfo>();
+            var dd = Hierarchy.GetProperties(typeof(Data));
+            dd = ads;
         }
     }
 }

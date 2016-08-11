@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Orion.Example;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
@@ -11,6 +12,8 @@ namespace Sandbox.DynamicLambda.Example
     {
         public void Run()
         {
+            new Domain();
+
             var c = new List<int>();
             for (int i = 0; i < 50; i++)
             {
@@ -20,6 +23,8 @@ namespace Sandbox.DynamicLambda.Example
         }
         public void Run22()
         {
+            
+
             var dic = new Dictionary<int, Task>();
             var que = new Queue<Task>();
             var b1 = GC.GetTotalMemory(false);
