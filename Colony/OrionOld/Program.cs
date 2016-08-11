@@ -34,10 +34,17 @@ namespace OrionOld
 
         static void Main(string[] args)
         {
-            Run(1);
-            Run(2);
-            Run(3);
-            Console.ReadKey();
+            //Run(1);
+            //Run(2);
+            //Run(3);
+            //Console.ReadKey();
+
+            var ss = new List<string>();
+            ss.Add("sadasd");
+            foreach (var item in ss)
+            {
+                ss.Add("asdasd");
+            }
         }
     }
 }
