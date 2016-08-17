@@ -36,5 +36,16 @@ namespace Hermes
                 }
             }
         }
+
+        public static void PrintOutTicks(Action call, int iterations)
+        {
+            using (new SpeedTimer())
+            {
+                for (int i = 0; i < iterations; i++)
+                {
+                    call();
+                };
+            }
+        }
     }
 }

@@ -15,7 +15,6 @@ namespace OTWv
         static void Main()
         {
             //
-            var dupa = "asdsad";
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             Application.Run(new Form1());

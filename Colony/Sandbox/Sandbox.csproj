@@ -44,6 +44,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DynamicLambda\Example\ExampleRun.cs" />
+    <Compile Include="Examples\Company.cs" />
     <Compile Include="Examples\OperatorSQLExample.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -56,6 +57,10 @@
     <Folder Include="DynamicLambda\Engine\" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Hermes\Hermes.csproj">
+      <Project>{1E4BB99B-F53A-4C19-8AF3-6527DAD727D0}</Project>
+      <Name>Hermes</Name>
+    </ProjectReference>
     <ProjectReference Include="..\OperatorSQL\OperatorSQL.csproj">
       <Project>{1ff8d467-c55b-4aa1-b4cf-08a9b2d2cc4a}</Project>
       <Name>OperatorSQL</Name>

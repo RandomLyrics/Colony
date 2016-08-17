@@ -19,8 +19,8 @@ namespace Sandbox.Examples
               ,[Phonenumber]
               ,[Email]
               ,[PasswordHash]
-              ,[BranchId]
-              ,[Adress_Id]
+              ,[BranchId] BranchNr
+              ,[Adress_Id] AdressNr
           FROM [PromosDB].[dbo].[CompanySet]
 ";
         readonly string _con = @"Data Source=RANDZIU-KOMP;Initial Catalog=PromosDB;Integrated Security=True;Connect Timeout=15;Encrypt=False;TrustServerCertificate=True;ApplicationIntent=ReadWrite;MultiSubnetFailover=False";
@@ -31,8 +31,8 @@ namespace Sandbox.Examples
               ,[Phonenumber]
               ,[Email]
               ,[PasswordHash]
-              ,[BranchId]
-              ,[Adress_Id]";
+              ,[BranchId] BranchNr
+              ,[Adress_Id] AdressNr";
         readonly string COLUMNS_ADRESS = @"da.Country";
         readonly string COLUMNS_BRANCH = @"db.Description";
 
@@ -59,34 +59,20 @@ namespace Sandbox.Examples
         public void Run()
         {
 
-            Select("Maltex", 1);
-            //quary.AddColumns()
-           var conn = new SqlConnection(_con);
-            var q = new object[] { "ads", 44, "asd" }.AsQueryable();
-            var asd = q.Where(x => x.ToString() == "asd").ToString() ;
-            using (var con = new SqlChannel(_con))
-            {
-                var reader = con.Send(SELECT_ALL_COMPANIES);
-                //var query = new SqlCommand(SELECT_ALL_COMPANIES, con);
-                //var reader = query.ExecuteReader();
-                var s = reader["Id"];
-                while (reader.Read())
-                {
-                    Console.WriteLine("Start");
-                    for (int i = 0; i < reader.FieldCount; i++)
-                    {
-                        if (!reader.IsDBNull(i))
-                        {
-                            
-                            var ctype = reader.GetFieldType(i);
-                            Console.WriteLine(reader.GetValue(i).ToString());
-                        }
 
-                    }
-                    Console.WriteLine("End");
-                }
-            }
-                //con.Open();
+            var con = new SqlConnection(_con);
+            var comnd = new SqlCommand(SELECT_ALL_COMPANIES, con);
+            con.Open();
+
+
+            var reader = comnd.ExecuteReader();
+            var listobj = Mapper.FromReader<Company>(reader);
+
+            con.Close();
+            //using (var con = new SqlChannel(_con))
+            //{
+                
+            //}
            
         }
     }
