@@ -44,6 +44,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DynamicLambda\Example\ExampleRun.cs" />
+    <Compile Include="Examples\Company.cs" />
     <Compile Include="Examples\OperatorSQLExample.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
