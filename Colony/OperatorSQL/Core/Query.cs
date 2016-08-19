@@ -11,7 +11,7 @@ namespace OperatorSQL.Core
     public static class QueryExtensions
     {
         public static char _separator = ',';
-
+       // public static char _
         public static Query Select(this Query q)
         {
             return q;
@@ -57,6 +57,7 @@ namespace OperatorSQL.Core
     {
         internal StringBuilder _quary = new StringBuilder();
 
+        internal int _colPos;
         internal ICollection<string> _columns = new Collection<string>();
         internal string _from;
         internal ICollection<string> _joins = new Collection<string>();
@@ -64,6 +65,7 @@ namespace OperatorSQL.Core
 
         public string Build()
         {
+            //_quary.Insert()
             _quary.Clear();
             _quary.Append("SELECT ");
             foreach (var col in _columns)

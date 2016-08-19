@@ -1,4 +1,5 @@
-﻿using OperatorSQL.Core;
+﻿using Hermes;
+using OperatorSQL.Core;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -47,21 +48,35 @@ namespace Sandbox.Examples
         readonly string WHERE_ADRESS = @"Adress_Id = @adress";
 
 
-        public void Select(string name, long adress)
+        public string Select(string name, long adress)
         {
             var quary = new Query();
-           // quary.Select().Columns(COLUMNS_MAIN).From(FROM_A).Join(JOIN_ADRESS).W;
-            //if (name != null)
-            //    quary.Columns(COLUMNS_MAIN);
-            var s = quary.Build();
+            quary.Select().Columns(COLUMNS_MAIN).From(FROM_A).Join(JOIN_ADRESS);
+            if (name != null)
+                quary.Columns(COLUMNS_MAIN);
+            return quary.Build();
         }
 
         public void Run()
         {
+            string g;
+            using (new SpeedTimer())
+            {
+                g = Select("Maltex", 1);
 
-            Select("Maltex", 1);
+            }
+            using (new SpeedTimer())
+            {
+                var quary = new Query();
+                quary.Select().Columns(COLUMNS_MAIN+ COLUMNS_MAIN).From(FROM_A).Join(JOIN_ADRESS);
+                //if (name != null)
+                    quary.Columns(COLUMNS_MAIN);
+                g = quary.Build();
+
+            }
+
             //quary.AddColumns()
-           var conn = new SqlConnection(_con);
+            var conn = new SqlConnection(_con);
             var q = new object[] { "ads", 44, "asd" }.AsQueryable();
             var asd = q.Where(x => x.ToString() == "asd").ToString() ;
             using (var con = new SqlChannel(_con))

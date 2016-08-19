@@ -23,18 +23,18 @@ namespace OrionOld.Example
         }
         public Domain()
         {
-            this.Cache = new Cache();
-            for (int i = 0; i < 10; i++)
-            {
-                Stopwatch timer = new Stopwatch();
-                timer.Start();
+            //this.Cache = new Cache();
+            //for (int i = 0; i < 10; i++)
+            //{
+            //    Stopwatch timer = new Stopwatch();
+            //    timer.Start();
 
-                Hierarchy.Build(this);
-                //var ss = this.Build<Domain>();
+            //    Hierarchy.Build(this);
+            //    //var ss = this.Build<Domain>();
 
-                timer.Stop();
-                Console.WriteLine("Elpased: " + timer.ElapsedMilliseconds);
-            }
+            //    timer.Stop();
+            //    Console.WriteLine("Elpased: " + timer.ElapsedMilliseconds);
+            //}
             // Data = new Data() { Cache = this.Cache };
             // this.Cache = new Cache();
             //this.ToCache(Cache);
