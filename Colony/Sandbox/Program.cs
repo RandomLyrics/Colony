@@ -23,9 +23,11 @@ namespace Sandbox
     }
     class Program
     {
+        
         static int amount = 1000000;
         static void Main(string[] args)
         {
+            new SargerasExample().Run();
             new XMLparsero().Run();
 
             //Random r = new Random();

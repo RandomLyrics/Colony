@@ -69,89 +69,89 @@ namespace OrionOld
 
         static void Main(string[] args)
         {
-            var dupa = new Dupa();
-            dupa.Minis.Add(new Minidupa());
-            dupa.Minis.Add(new Minidupa());
+            //var dupa = new Dupa();
+            //dupa.Minis.Add(new Minidupa());
+            //dupa.Minis.Add(new Minidupa());
 
-            var ss = JsonConvert.SerializeObject(dupa);
-            var ad = Stats.SizeOf(() => { return new Domain(); }, false, false);
-            var method = typeof(Domain).GetProperty("Data").GetSetMethod();
-            var prop = typeof(Domain).GetProperty("Data");
-            var data = new Data();
-            var dom = new Domain();
-            var methodd = dfunc(dom, data);
+            //var ss = JsonConvert.SerializeObject(dupa);
+            //var ad = Stats.SizeOf(() => { return new Domain(); }, false, false);
+            //var method = typeof(Domain).GetProperty("Data").GetSetMethod();
+            //var prop = typeof(Domain).GetProperty("Data");
+            //var data = new Data();
+            //var dom = new Domain();
+            //var methodd = dfunc(dom, data);
 
-            using (new SpeedTimer())
-            {
-                for (int i = 0; i < 100; i++)
-                {
-                    
-                    method.Invoke(dom, new object[] { data });
-                }
-            }
-            using (new SpeedTimer())
-            {
-                for (int i = 0; i < 100; i++)
-                {
-                    methodd(dom, data);
-                }
-            }
-            using (new SpeedTimer())
-            {
-                for (int i = 0; i < 100; i++)
-                {
-                    prop.SetValue(dom, data);
-                }
-            }
-            using (new SpeedTimer())
-            {
-                for (int i = 0; i < 100; i++)
-                {
-                    dom.Data = data;
-                }
-            }
-            Action<Domain, Data> fffunc = (domm, da) => domm.Data = da;
-            using (new SpeedTimer())
-            {
-                for (int i = 0; i < 100; i++)
-                {
-                    fffunc(dom, data);
-                }
-            }
-            //Run(1);
-            //Run(2);
-            //Run(3);
-            //Console.ReadKey();
-            Func <int, int > ff = ((i) => {  return i; });
-            ff(4);
-            using (new SpeedTimer())
-            {
-                for (int i = 0; i < 1; i++)
-                {
-                    var sss = Call(i, ff);
-                }
-            }
-            using (new SpeedTimer())
-            {
-                for (int i = 0; i < 1; i++)
-                {
-                    var ads = i;
-                }
-            }
-            using (new SpeedTimer())
-            {
-                for (int i = 0; i < 1; i++)
-                {
-                    var sss = Call(i, ff);
-                }
-            }
-
-            //var ss = new List<string>();
-            //ss.Add("sadasd");
-            //foreach (var item in ss)
+            //using (new SpeedTimer())
             //{
-            //    ss.Add("asdasd");
+            //    for (int i = 0; i < 100; i++)
+            //    {
+                    
+            //        method.Invoke(dom, new object[] { data });
+            //    }
             //}
+            //using (new SpeedTimer())
+            //{
+            //    for (int i = 0; i < 100; i++)
+            //    {
+            //        methodd(dom, data);
+            //    }
+            //}
+            //using (new SpeedTimer())
+            //{
+            //    for (int i = 0; i < 100; i++)
+            //    {
+            //        prop.SetValue(dom, data);
+            //    }
+            //}
+            //using (new SpeedTimer())
+            //{
+            //    for (int i = 0; i < 100; i++)
+            //    {
+            //        dom.Data = data;
+            //    }
+            //}
+            //Action<Domain, Data> fffunc = (domm, da) => domm.Data = da;
+            //using (new SpeedTimer())
+            //{
+            //    for (int i = 0; i < 100; i++)
+            //    {
+            //        fffunc(dom, data);
+            //    }
+            //}
+            ////Run(1);
+            ////Run(2);
+            ////Run(3);
+            ////Console.ReadKey();
+            //Func <int, int > ff = ((i) => {  return i; });
+            //ff(4);
+            //using (new SpeedTimer())
+            //{
+            //    for (int i = 0; i < 1; i++)
+            //    {
+            //        var sss = Call(i, ff);
+            //    }
+            //}
+            //using (new SpeedTimer())
+            //{
+            //    for (int i = 0; i < 1; i++)
+            //    {
+            //        var ads = i;
+            //    }
+            //}
+            //using (new SpeedTimer())
+            //{
+            //    for (int i = 0; i < 1; i++)
+            //    {
+            //        var sss = Call(i, ff);
+            //    }
+            //}
+
+            ////var ss = new List<string>();
+            ////ss.Add("sadasd");
+            ////foreach (var item in ss)
+            ////{
+            ////    ss.Add("asdasd");
+            ////}
         }
     }
 }
