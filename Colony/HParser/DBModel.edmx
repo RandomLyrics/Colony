@@ -15,14 +15,14 @@
         <EntityContainer Name="DBModelContainer" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="Files" EntityType="DBModel.File" />
           <EntitySet Name="FileTypes" EntityType="DBModel.FileType" />
-          <EntitySet Name="ParseRules" EntityType="DBModel.ParseRule" />
-          <AssociationSet Name="FileTypeParseRule" Association="DBModel.FileTypeParseRule">
-            <End Role="FileType" EntitySet="FileTypes" />
-            <End Role="ParseRule" EntitySet="ParseRules" />
-          </AssociationSet>
           <AssociationSet Name="FileTypeFile" Association="DBModel.FileTypeFile">
             <End Role="FileType" EntitySet="FileTypes" />
             <End Role="File" EntitySet="Files" />
+          </AssociationSet>
+          <EntitySet Name="RecordTypes" EntityType="DBModel.RecordType" />
+          <AssociationSet Name="FileTypeRecordType" Association="DBModel.FileTypeRecordType">
+            <End Role="FileType" EntitySet="FileTypes" />
+            <End Role="RecordType" EntitySet="RecordTypes" />
           </AssociationSet>
         </EntityContainer>
         <EntityType Name="File">
@@ -41,27 +41,9 @@
           <Property Name="FileTypeId" Nullable="false" annotation:StoreGeneratedPattern="Identity" Type="Int32" />
           <Property Name="Org" Nullable="false" Type="String" />
           <Property Name="FType" Nullable="false" Type="String" />
-          <NavigationProperty Name="ParseRules" Relationship="DBModel.FileTypeParseRule" FromRole="FileType" ToRole="ParseRule" />
           <NavigationProperty Name="Files" Relationship="DBModel.FileTypeFile" FromRole="FileType" ToRole="File" />
+          <NavigationProperty Name="RecordTypes" Relationship="DBModel.FileTypeRecordType" FromRole="FileType" ToRole="RecordType" />
         </EntityType>
-        <EntityType Name="ParseRule">
-          <Property Name="FileTypeId" Type="Int32" Nullable="false" />
-          <Property Name="RecordType" Type="String" Nullable="false" FixedLength="true" MaxLength="1" />
-          <Property Name="Rules" Type="String" Nullable="false" />
-          <NavigationProperty Name="FileType" Relationship="DBModel.FileTypeParseRule" FromRole="ParseRule" ToRole="FileType" />
-        </EntityType>
-        <Association Name="FileTypeParseRule">
-          <End Type="DBModel.FileType" Role="FileType" Multiplicity="1" />
-          <End Type="DBModel.ParseRule" Role="ParseRule" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="FileType">
-              <PropertyRef Name="FileTypeId" />
-            </Principal>
-            <Dependent Role="ParseRule">
-              <PropertyRef Name="FileTypeId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FileTypeFile">
           <End Type="DBModel.FileType" Role="FileType" Multiplicity="1" />
           <End Type="DBModel.File" Role="File" Multiplicity="*" />
@@ -70,6 +52,28 @@
               <PropertyRef Name="FileTypeId" />
             </Principal>
             <Dependent Role="File">
+              <PropertyRef Name="FileTypeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="RecordType">
+          <Key>
+            <PropertyRef Name="RecordTypeId" />
+          </Key>
+          <Property Name="FileTypeId" Type="Int32" Nullable="false" />
+          <Property Name="RecordTypeId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="RType" Type="String" Nullable="false" />
+          <Property Name="ParseRules" Type="String" Nullable="false" />
+          <NavigationProperty Name="FileType" Relationship="DBModel.FileTypeRecordType" FromRole="RecordType" ToRole="FileType" />
+        </EntityType>
+        <Association Name="FileTypeRecordType">
+          <End Type="DBModel.FileType" Role="FileType" Multiplicity="1" />
+          <End Type="DBModel.RecordType" Role="RecordType" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="FileType">
+              <PropertyRef Name="FileTypeId" />
+            </Principal>
+            <Dependent Role="RecordType">
               <PropertyRef Name="FileTypeId" />
             </Dependent>
           </ReferentialConstraint>

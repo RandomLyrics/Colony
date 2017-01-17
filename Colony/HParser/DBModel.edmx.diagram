@@ -5,11 +5,11 @@
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
       <Diagram DiagramId="6db9fc938aee44209678f9b85ac93260" Name="Diagram1" >
-        <EntityTypeShape EntityType="DBModel.File" Width="1.5" PointX="7" PointY="1.75" />
-        <EntityTypeShape EntityType="DBModel.FileType" PointX="9.625" PointY="1.5" Width="1.5" />
-        <EntityTypeShape EntityType="DBModel.ParseRule" Width="1.5" PointX="12.25" PointY="1.5" />
-        <AssociationConnector Association="DBModel.FileTypeParseRule" />
+        <EntityTypeShape EntityType="DBModel.File" Width="1.5" PointX="7.375" PointY="2" />
+        <EntityTypeShape EntityType="DBModel.FileType" PointX="10.125" PointY="1.5" Width="1.5" />
         <AssociationConnector Association="DBModel.FileTypeFile" />
+        <EntityTypeShape EntityType="DBModel.RecordType" Width="1.5" PointX="13.125" PointY="1.875" />
+        <AssociationConnector Association="DBModel.FileTypeRecordType" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
