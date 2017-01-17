@@ -1,0 +1,44 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace RoboOpierdalacz2000.Core
+{
+    /// <summary>
+    /// All possible events that macro can record
+    /// </summary>
+    [Serializable]
+    public enum MacroEventType
+    {
+        MouseMove,
+        MouseDown,
+        MouseUp,
+        MouseWheel,
+        KeyDown,
+        KeyUp
+    }
+
+    /// <summary>
+    /// Series of events that can be recorded any played back
+    /// </summary>
+    [Serializable]
+    public class MacroEvent
+    {
+
+        public MacroEventType MacroEventType;
+        public EventArgs EventArgs;
+        public long TimeSinceLastEvent;
+
+        public MacroEvent(MacroEventType macroEventType, EventArgs eventArgs, long timeSinceLastEvent)
+        {
+
+            MacroEventType = macroEventType;
+            EventArgs = eventArgs;
+            TimeSinceLastEvent = timeSinceLastEvent;
+
+        }
+
+    }
+}
