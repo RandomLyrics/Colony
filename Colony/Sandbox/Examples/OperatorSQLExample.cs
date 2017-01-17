@@ -14,14 +14,12 @@ namespace Sandbox.Examples
     {
         readonly string SELECT_ALL_COMPANIES = @"
             SELECT TOP 1000 [Id]
-              ,[Name]
-              ,[NIP]
-              ,[Phonenumber]
-              ,[Email]
-              ,[PasswordHash]
-              ,[BranchId] BranchNr
-              ,[Adress_Id] AdressNr
-          FROM [PromosDB].[dbo].[CompanySet]
+    ,[Name]
+    ,[NIP]
+    ,[Phonenumber]
+    ,[Adress_Id] AdressNr
+FROM [PromosDB].[dbo].[CompanySet]
+where BranchId = @BranchNr
 ";
         readonly string _con = @"Data Source=RANDZIU-KOMP;Initial Catalog=PromosDB;Integrated Security=True;Connect Timeout=15;Encrypt=False;TrustServerCertificate=True;ApplicationIntent=ReadWrite;MultiSubnetFailover=False";
 
@@ -47,28 +45,39 @@ namespace Sandbox.Examples
         readonly string WHERE_ADRESS = @"Adress_Id = @adress";
 
 
-        public void Select(string name, long adress)
-        {
-            var quary = new Query();
-           // quary.Select().Columns(COLUMNS_MAIN).From(FROM_A).Join(JOIN_ADRESS).W;
-            //if (name != null)
-            //    quary.Columns(COLUMNS_MAIN);
-            var s = quary.Build();
-        }
+        //public void Select(string name, long adress)
+        //{
+        //    var quary = new Query();
+        //   // quary.Select().Columns(COLUMNS_MAIN).From(FROM_A).Join(JOIN_ADRESS).W;
+        //    //if (name != null)
+        //    //    quary.Columns(COLUMNS_MAIN);
+        //    var s = quary.Build();
+        //}
 
         public void Run()
         {
 
+            // var list = 
+            var branchnr = 4;
+            List<Company> list;
+            using (var conn = new SqlChannel(_con))
+            {
+                var qr = new Query(SELECT_ALL_COMPANIES)
+                    .AddParam("@BranchNr", SqlDbType.Int, branchnr);
+                list = conn.GetRecords<Company>(qr);
+            }
 
-            var con = new SqlConnection(_con);
-            var comnd = new SqlCommand(SELECT_ALL_COMPANIES, con);
-            con.Open();
+            //var con = new SqlConnection(_con);
+            
+            //var comnd = new SqlCommand(SELECT_ALL_COMPANIES, con);
+            //comnd.pa
+            //con.Open();
 
 
-            var reader = comnd.ExecuteReader();
-            var listobj = Mapper.FromReader<Company>(reader);
+            //var reader = comnd.ExecuteReader();
+            //var listobj = Mapper.FromReader<Company>(reader);
 
-            con.Close();
+            //con.Close();
             //using (var con = new SqlChannel(_con))
             //{
                 

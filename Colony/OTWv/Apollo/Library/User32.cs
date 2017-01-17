@@ -209,7 +209,7 @@ namespace OTWv.Apollo.Library
         /// <summary>Specifies a window that has a border with a raised edge.</summary>
         WS_EX_WINDOWEDGE = 0x00000100
     }
-    [Flags] 
+    [Flags()] 
     enum WindowStyles : uint
     {
         WS_OVERLAPPED = 0x00000000,

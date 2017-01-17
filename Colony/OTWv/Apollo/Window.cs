@@ -15,7 +15,7 @@ namespace OTWv.Apollo
         public byte Opacity
         {
             get { return Opacity; }
-            set { SetOpacity(value); }
+            set { SetOpacity(value, true); }
         }
 
 
@@ -46,6 +46,16 @@ namespace OTWv.Apollo
         public bool Clickthrough { get; set; }
         public bool OnTop { get; set; }
         public bool Autohide { get; set; }
+
+        public void SetThickBorder(bool enabled)
+        {
+            if (enabled)
+            {
+                var style = User32.GetWindowLong(_window, User32.GWL_EXSTYLE);
+                style = (uint)~(WindowStyles.WS_CAPTION | WindowStyles.WS_THICKFRAME | WindowStyles.WS_MINIMIZE | WindowStyles.WS_MAXIMIZE | WindowStyles.WS_SYSMENU);
+                User32.SetWindowLong(_window, (int)WindowLongFlags.GWL_STYLE, style);
+            }
+        }
 
 
         public void SetWindowConfig(byte oval, bool clickthrough)

@@ -15,6 +15,7 @@ namespace OTWv
 {
     public partial class Form1 : Form
     {
+        private Window _window;
         public static Dictionary<string, Process> _processesDic { get; set; } = new Dictionary<string, Process>();
         public static Dictionary<Process, Window> _windowsDic { get; set; } = new Dictionary<Process, Window>();
         public Form1()
@@ -56,6 +57,7 @@ namespace OTWv
                 if (!_windowsDic.ContainsKey(item))
                 {
                     _windowsDic[item] = new Window(item.MainWindowHandle, Handle);
+                    _window = _windowsDic[item];
                 }
                 var window = _windowsDic[item];
                 window.SetOnTop(true);
@@ -168,6 +170,14 @@ namespace OTWv
             this.WindowState = FormWindowState.Normal;
             this.ShowInTaskbar = true;
             notifyIcon1.Visible = false;
+        }
+
+        private void checkBox2_CheckedChanged(object sender, EventArgs e)
+        {
+            if (checkBox2.Checked)
+                _window.SetThickBorder(true);
+            else
+                _window.SetThickBorder(false);
         }
     }
 }
