@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -18,6 +20,51 @@ namespace RoboOpierdalacz2000.Core
         MouseWheel,
         KeyDown,
         KeyUp
+    }
+
+    /// <summary>
+    /// Set of macro movies
+    /// </summary>
+    [Serializable]
+    public class MacroPack: IListSource
+    {
+        public bool ContainsListCollection
+        {
+            get
+            {
+                return true;
+            }
+        }
+
+        public List<MacroMovie> Movies { get; set; } = new List<MacroMovie>();
+
+        public IList GetList()
+        {
+            return Movies;
+        }
+    }
+    /// <summary>
+    /// Full length record (list) of macro events
+    /// </summary>
+    [Serializable]
+    public class MacroMovie
+    {
+        public string Name { get; set; }
+        public List<MacroEvent> Records { get; set; } = new List<MacroEvent>();
+
+        public override string ToString()
+        {
+            return Name;
+        }
+
+        public MacroMovie()
+        {
+
+        }
+        public MacroMovie(string name)
+        {
+            Name = name;
+        }
     }
 
     /// <summary>

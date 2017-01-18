@@ -27,8 +27,9 @@ namespace Sandbox
         static int amount = 1000000;
         static void Main(string[] args)
         {
-            new SargerasExample().Run();
-            new XMLparsero().Run();
+           // new RoboOpierdalacz().Run();
+            //new SargerasExample().Run();
+            //new XMLparsero().Run();
 
             //Random r = new Random();
             //List<Wave> wavelist = new List<Wave>(amount);

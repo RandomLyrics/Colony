@@ -1,106 +1,228 @@
-﻿using RoboOpierdalacz2000.Core;
+﻿using MouseKeyboardLibrary;
+using Newtonsoft.Json;
+using RoboOpierdalacz2000.Core;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Xml;
+using System.Xml.Serialization;
 
 namespace RoboOpierdalacz2000
 {
     public partial class Form1 : Form
     {
-        private byte _state = 0; //0-none 1-record 2-play
-        private List<MacroEvent> _marks = new List<MacroEvent>();
-        private int _marksCounter = 0;
+        MacroPack _movies = new MacroPack();
+        List<MacroEvent> _cevents = new List<MacroEvent>();
+        long lastTimeRecorded = 0;
 
-        // private Hook _hook = new Hook();
+        MouseHook mouseHook = new MouseHook();
+        KeyboardHook keyboardHook = new KeyboardHook();
+
 
         public Form1()
         {
             InitializeComponent();
+
+            mouseHook.MouseMove += new MouseEventHandler(mouseHook_MouseMove);
+            mouseHook.MouseDown += new MouseEventHandler(mouseHook_MouseDown);
+            mouseHook.MouseUp += new MouseEventHandler(mouseHook_MouseUp);
+
+            keyboardHook.KeyDown += new KeyEventHandler(keyboardHook_KeyDown);
+            keyboardHook.KeyUp += new KeyEventHandler(keyboardHook_KeyUp);
+
         }
 
-        private void timer1_Tick(object sender, EventArgs e)
+        //macro events
+        void mouseHook_MouseMove(object sender, MouseEventArgs e)
         {
-            if (_state == 1)
-            {
-                var m = new Mark();
-                m.MousePosition = MousePosition;
-                _marks.Add(m);
-            }
-            else if (_state == 2)
-            {
-                if (_marksCounter >= _marks.Count)
-                    _marksCounter = 0;
-                if (_marks.Count > 0)
-                {
-                    Cursor.Position = _marks[_marksCounter].MousePosition;
-                    if (_marks[_marksCounter].KeyPressed != 0)
-                    {
-                        SendKeys.Send("ZXCVBNM");
-                    }
-                    _marksCounter++;
-                }
-            }
+            _cevents.Add(
+                new MacroEvent(
+                    MacroEventType.MouseMove,
+                    e,
+                    Environment.TickCount - lastTimeRecorded
+                ));
+
+            lastTimeRecorded = Environment.TickCount;
         }
 
+        void mouseHook_MouseDown(object sender, MouseEventArgs e)
+        {
+
+            _cevents.Add(
+                new MacroEvent(
+                    MacroEventType.MouseDown,
+                    e,
+                    Environment.TickCount - lastTimeRecorded
+                ));
+
+            lastTimeRecorded = Environment.TickCount;
+
+        }
+
+        void mouseHook_MouseUp(object sender, MouseEventArgs e)
+        {
+
+            _cevents.Add(
+                new MacroEvent(
+                    MacroEventType.MouseUp,
+                    e,
+                    Environment.TickCount - lastTimeRecorded
+                ));
+
+            lastTimeRecorded = Environment.TickCount;
+
+        }
+
+        void keyboardHook_KeyDown(object sender, KeyEventArgs e)
+        {
+
+            _cevents.Add(
+                new MacroEvent(
+                    MacroEventType.KeyDown,
+                    e,
+                    Environment.TickCount - lastTimeRecorded
+                ));
+
+            lastTimeRecorded = Environment.TickCount;
+
+        }
+
+        void keyboardHook_KeyUp(object sender, KeyEventArgs e)
+        {
+
+            _cevents.Add(
+                new MacroEvent(
+                    MacroEventType.KeyUp,
+                    e,
+                    Environment.TickCount - lastTimeRecorded
+                ));
+
+            lastTimeRecorded = Environment.TickCount;
+
+        }
+        
         private void checkBox2_CheckedChanged(object sender, EventArgs e)
         {
             if (checkBox2.Checked)
             {
-                _state = 2; //play
+                Controls.OfType<Button>().ToList().ForEach(x => x.Enabled = false);
+                checkBox1.Enabled = false;
+                comboBox1.Enabled = false;
+
+                _cevents.Clear();
+                lastTimeRecorded = Environment.TickCount;
+
+                keyboardHook.Start();
+                mouseHook.Start();
             }
             else
             {
-                _state = 0; //none
-               
+                keyboardHook.Stop();
+                mouseHook.Stop();
+
+                var tmp = new MacroMovie(comboBox1.Text);
+                tmp.Records = _cevents;
+                _movies.Movies.Add(tmp);
+                
+                comboBox1.DataSource = _movies;
+
+                Controls.OfType<Button>().ToList().ForEach(x => x.Enabled = true);
+                checkBox1.Enabled = true;
+                comboBox1.Enabled = true;
             }
         }
 
-        private void Form1_Load(object sender, EventArgs e)
+        private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
+            //comboBox1.DataSource = _movies.Movies;
+        }
 
+        private void button1_Click(object sender, EventArgs e)
+        {
+            comboBox1.DataSource = _movies;
+        }
+
+        //FILE
+        private void button2_Click(object sender, EventArgs e)
+        {
+            var FD = new System.Windows.Forms.OpenFileDialog();
+            if (FD.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+            {
+                string path = FD.FileName;
+                var filebody = File.ReadAllText(path);
+                var open = JsonConvert.DeserializeObject<MacroPack>(filebody);
+                comboBox1.DataSource = open;
+            }
+        }
+        private void button3_Click(object sender, EventArgs e)
+        {
+            var FD = new System.Windows.Forms.SaveFileDialog();
+            FD.DefaultExt = ".mpack";
+            if (FD.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+            {
+                var path = FD.FileName;
+                var filebody = JsonConvert.SerializeObject(_movies);
+                File.WriteAllText(path, filebody);
+            }
         }
 
         private void checkBox1_CheckedChanged(object sender, EventArgs e)
         {
             if (checkBox1.Checked)
             {
-                _state = 1; //record
-            }
-            else
-            {
-                _state = 0; //none
-                label1.Text = _marks.Count.ToString();
-            }
-        }
+                _cevents = _movies.Movies[comboBox1.SelectedIndex].Records;
+                foreach (MacroEvent macroEvent in _cevents)
+                {
 
-        private void button1_Click(object sender, EventArgs e)
-        {
-            //clear cache
-            _marks.Clear();
-            _marksCounter = 0;
-            label1.Text = _marks.Count.ToString();
-            timer1.Interval = Convert.ToInt32(textBox1.Text);
-            timer1.Enabled = true;
-        }
+                    Thread.Sleep((int)macroEvent.TimeSinceLastEvent);
 
-        private void Form1_KeyPress(object sender, KeyPressEventArgs e)
-        {
-            if (e.KeyChar == (char)ConsoleKey.Escape)
-            {
-                timer1.Enabled = false;
+                    switch (macroEvent.MacroEventType)
+                    {
+                        case MacroEventType.MouseMove:
+                            {
+                                MouseEventArgs mouseArgs = (MouseEventArgs)macroEvent.EventArgs;
+                                MouseSimulator.X = mouseArgs.X;
+                                MouseSimulator.Y = mouseArgs.Y;
+                            }
+                            break;
+                        case MacroEventType.MouseDown:
+                            {
+                                MouseEventArgs mouseArgs = (MouseEventArgs)macroEvent.EventArgs;
+                                MouseSimulator.MouseDown(mouseArgs.Button);
+                            }
+                            break;
+                        case MacroEventType.MouseUp:
+                            {
+                                MouseEventArgs mouseArgs = (MouseEventArgs)macroEvent.EventArgs;
+                                MouseSimulator.MouseUp(mouseArgs.Button);
+                            }
+                            break;
+                        case MacroEventType.KeyDown:
+                            {
+                                KeyEventArgs keyArgs = (KeyEventArgs)macroEvent.EventArgs;
+                                KeyboardSimulator.KeyDown(keyArgs.KeyCode);
+                            }
+                            break;
+                        case MacroEventType.KeyUp:
+                            {
+                                KeyEventArgs keyArgs = (KeyEventArgs)macroEvent.EventArgs;
+                                KeyboardSimulator.KeyUp(keyArgs.KeyCode);
+                            }
+                            break;
+                        default:
+                            break;
+                    }
+
+                }
             }
         }
-
-        private void Form1_FormClosing(object sender, FormClosingEventArgs e)
-        {
-            _listener.UnHookKeyboard();
-        }
-        
     }
 }
