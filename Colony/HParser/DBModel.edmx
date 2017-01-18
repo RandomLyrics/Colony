@@ -4,11 +4,193 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl" Namespace="DBModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2005">
-        <EntityContainer Name="DBModelTargetContainer" >
-        </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+    <Schema Namespace="DBModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2012" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityContainer Name="DBModelStoreContainer">
+    <EntitySet Name="Files" EntityType="DBModel.Store.Files" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="FileTypes" EntityType="DBModel.Store.FileTypes" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="RecordTypes" EntityType="DBModel.Store.RecordTypes" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Gateways" EntityType="DBModel.Store.Gateways" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Records" EntityType="DBModel.Store.Records" store:Type="Tables" Schema="dbo" />
+    <AssociationSet Name="FileTypeFile" Association="DBModel.Store.FileTypeFile">
+      <End Role="FileType" EntitySet="FileTypes" />
+      <End Role="File" EntitySet="Files" />
+    </AssociationSet>
+    <AssociationSet Name="FileTypeRecordType" Association="DBModel.Store.FileTypeRecordType">
+      <End Role="FileType" EntitySet="FileTypes" />
+      <End Role="RecordType" EntitySet="RecordTypes" />
+    </AssociationSet>
+    <AssociationSet Name="GatewayFile" Association="DBModel.Store.GatewayFile">
+      <End Role="Gateway" EntitySet="Gateways" />
+      <End Role="File" EntitySet="Files" />
+    </AssociationSet>
+    <AssociationSet Name="RecordTypeRecord" Association="DBModel.Store.RecordTypeRecord">
+      <End Role="RecordType" EntitySet="RecordTypes" />
+      <End Role="Record" EntitySet="Records" />
+    </AssociationSet>
+    <AssociationSet Name="FileRecord" Association="DBModel.Store.FileRecord">
+      <End Role="File" EntitySet="Files" />
+      <End Role="Record" EntitySet="Records" />
+    </AssociationSet>
+    <AssociationSet Name="FileFile" Association="DBModel.Store.FileFile">
+      <End Role="File" EntitySet="Files" />
+      <End Role="File1" EntitySet="Files" />
+    </AssociationSet>
+    <AssociationSet Name="RecordHRecord" Association="DBModel.Store.RecordHRecord">
+      <End Role="Record" EntitySet="Records" />
+      <End Role="Record1" EntitySet="Records" />
+    </AssociationSet>
+    <AssociationSet Name="RecordTRecord" Association="DBModel.Store.RecordTRecord">
+      <End Role="Record" EntitySet="Records" />
+      <End Role="Record1" EntitySet="Records" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="Files">
+    <Key>
+      <PropertyRef Name="FileId" />
+    </Key>
+    <Property Name="GatewayId" Type="int" Nullable="false" />
+    <Property Name="FileTypeId" Type="int" Nullable="false" />
+    <Property Name="FileId" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="MatchedFileId" Type="bigint" Nullable="true" />
+    <Property Name="Name" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="InsertDate" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Metadata" Type="nvarchar(max)" Nullable="true" />
+  </EntityType>
+  <EntityType Name="FileTypes">
+    <Key>
+      <PropertyRef Name="FileTypeId" />
+    </Key>
+    <Property Name="FileTypeId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Organization" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="FType" Type="nvarchar(max)" Nullable="false" />
+  </EntityType>
+  <EntityType Name="RecordTypes">
+    <Key>
+      <PropertyRef Name="RecordTypeId" />
+    </Key>
+    <Property Name="FileTypeId" Type="int" Nullable="false" />
+    <Property Name="RecordTypeId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="RType" Type="nchar" Nullable="false" MaxLength="1" />
+    <Property Name="ParseRules" Type="nvarchar(max)" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Gateways">
+    <Key>
+      <PropertyRef Name="GatewayId" />
+    </Key>
+    <Property Name="GatewayId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Metadata" Type="nvarchar(max)" Nullable="true" />
+  </EntityType>
+  <EntityType Name="Records">
+    <Key>
+      <PropertyRef Name="RecordId" />
+    </Key>
+    <Property Name="FileId" Type="bigint" Nullable="false" />
+    <Property Name="RecordTypeId" Type="int" Nullable="false" />
+    <Property Name="HeaderRecordId" Type="bigint" Nullable="true" />
+    <Property Name="TrailerRecordId" Type="bigint" Nullable="true" />
+    <Property Name="RecordId" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Value" Type="nchar" Nullable="false" MaxLength="120" />
+    <Property Name="PAN" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="ExpiryDate" Type="nvarchar(max)" Nullable="false" />
+  </EntityType>
+  <Association Name="FileTypeFile">
+    <End Role="FileType" Type="DBModel.Store.FileTypes" Multiplicity="1" />
+    <End Role="File" Type="DBModel.Store.Files" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="FileType">
+        <PropertyRef Name="FileTypeId" />
+      </Principal>
+      <Dependent Role="File">
+        <PropertyRef Name="FileTypeId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FileTypeRecordType">
+    <End Role="FileType" Type="DBModel.Store.FileTypes" Multiplicity="1" />
+    <End Role="RecordType" Type="DBModel.Store.RecordTypes" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="FileType">
+        <PropertyRef Name="FileTypeId" />
+      </Principal>
+      <Dependent Role="RecordType">
+        <PropertyRef Name="FileTypeId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="GatewayFile">
+    <End Role="Gateway" Type="DBModel.Store.Gateways" Multiplicity="1" />
+    <End Role="File" Type="DBModel.Store.Files" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Gateway">
+        <PropertyRef Name="GatewayId" />
+      </Principal>
+      <Dependent Role="File">
+        <PropertyRef Name="GatewayId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="RecordTypeRecord">
+    <End Role="RecordType" Type="DBModel.Store.RecordTypes" Multiplicity="1" />
+    <End Role="Record" Type="DBModel.Store.Records" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="RecordType">
+        <PropertyRef Name="RecordTypeId" />
+      </Principal>
+      <Dependent Role="Record">
+        <PropertyRef Name="RecordTypeId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FileRecord">
+    <End Role="File" Type="DBModel.Store.Files" Multiplicity="1" />
+    <End Role="Record" Type="DBModel.Store.Records" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="File">
+        <PropertyRef Name="FileId" />
+      </Principal>
+      <Dependent Role="Record">
+        <PropertyRef Name="FileId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FileFile">
+    <End Role="File" Type="DBModel.Store.Files" Multiplicity="0..1" />
+    <End Role="File1" Type="DBModel.Store.Files" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="File">
+        <PropertyRef Name="FileId" />
+      </Principal>
+      <Dependent Role="File1">
+        <PropertyRef Name="MatchedFileId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="RecordHRecord">
+    <End Role="Record" Type="DBModel.Store.Records" Multiplicity="0..1" />
+    <End Role="Record1" Type="DBModel.Store.Records" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Record">
+        <PropertyRef Name="RecordId" />
+      </Principal>
+      <Dependent Role="Record1">
+        <PropertyRef Name="HeaderRecordId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="RecordTRecord">
+    <End Role="Record" Type="DBModel.Store.Records" Multiplicity="0..1" />
+    <End Role="Record1" Type="DBModel.Store.Records" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Record">
+        <PropertyRef Name="RecordId" />
+      </Principal>
+      <Dependent Role="Record1">
+        <PropertyRef Name="TrailerRecordId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema xmlns="http://schemas.microsoft.com/ado/2009/11/edm" xmlns:cg="http://schemas.microsoft.com/ado/2006/04/codegeneration" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" Namespace="DBModel" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" annotation:UseStrongSpatialTypes="false">
@@ -38,11 +220,15 @@
             <End Role="File" EntitySet="Files" />
             <End Role="Record" EntitySet="Records" />
           </AssociationSet>
-          <AssociationSet Name="RecordHeaderRecord" Association="DBModel.RecordHeaderRecord">
+          <AssociationSet Name="FileFile" Association="DBModel.FileFile">
+            <End Role="File" EntitySet="Files" />
+            <End Role="File1" EntitySet="Files" />
+          </AssociationSet>
+          <AssociationSet Name="RecordHRecord" Association="DBModel.RecordHRecord">
             <End Role="Record" EntitySet="Records" />
             <End Role="Record1" EntitySet="Records" />
           </AssociationSet>
-          <AssociationSet Name="RecordRecord" Association="DBModel.RecordRecord">
+          <AssociationSet Name="RecordTRecord" Association="DBModel.RecordTRecord">
             <End Role="Record" EntitySet="Records" />
             <End Role="Record1" EntitySet="Records" />
           </AssociationSet>
@@ -51,15 +237,18 @@
           <Key>
             <PropertyRef Name="FileId" />
           </Key>
+          <Property Name="FileId" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
           <Property Name="GatewayId" Type="Int32" Nullable="false" />
           <Property Name="FileTypeId" Type="Int32" Nullable="false" />
-          <Property Name="FileId" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="MatchedFileId" Type="Int64" Nullable="true" />
           <Property Name="Name" Nullable="false" Type="String" />
           <NavigationProperty Name="FileType" Relationship="DBModel.FileTypeFile" FromRole="File" ToRole="FileType" />
           <Property Name="InsertDate" Type="String" Nullable="false" />
           <Property Name="Metadata" Type="String" Nullable="true" />
           <NavigationProperty Name="Gateway" Relationship="DBModel.GatewayFile" FromRole="File" ToRole="Gateway" />
           <NavigationProperty Name="Records" Relationship="DBModel.FileRecord" FromRole="File" ToRole="Record" />
+          <NavigationProperty Name="Files" Relationship="DBModel.FileFile" FromRole="File" ToRole="File1" />
+          <NavigationProperty Name="File1" Relationship="DBModel.FileFile" FromRole="File1" ToRole="File" />
         </EntityType>
         <EntityType Name="FileType">
           <Key>
@@ -87,10 +276,10 @@
           <Key>
             <PropertyRef Name="RecordTypeId" />
           </Key>
+          <Property Name="RecordTypeId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" xmlns="http://schemas.microsoft.com/ado/2009/11/edm" />
           <Property Name="FileTypeId" Type="Int32" Nullable="false" />
-          <Property Name="RecordTypeId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="RType" Type="String" Nullable="false" FixedLength="true" MaxLength="1" />
-          <Property Name="ParseRules" Type="String" Nullable="false" />
+          <Property Name="ParseRules" Type="String" Nullable="true" />
           <NavigationProperty Name="FileType" Relationship="DBModel.FileTypeRecordType" FromRole="RecordType" ToRole="FileType" />
           <NavigationProperty Name="Records" Relationship="DBModel.RecordTypeRecord" FromRole="RecordType" ToRole="Record" />
         </EntityType>
@@ -131,20 +320,20 @@
           <Key>
             <PropertyRef Name="RecordId" />
           </Key>
+          <Property Name="RecordId" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
           <Property Name="FileId" Type="Int64" Nullable="false" />
           <Property Name="RecordTypeId" Type="Int32" Nullable="false" />
-          <Property Name="HeaderRecordId" Type="Int64" Nullable="false" />
-          <Property Name="TrailerRecordId" Type="Int64" Nullable="false" />
-          <Property Name="RecordId" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="HeaderRecordId" Type="Int64" Nullable="true" />
+          <Property Name="TrailerRecordId" Type="Int64" Nullable="true" />
           <Property Name="Value" Type="String" Nullable="false" FixedLength="true" MaxLength="120" />
           <Property Name="PAN" Type="String" Nullable="false" />
           <Property Name="ExpiryDate" Type="String" Nullable="false" />
           <NavigationProperty Name="RecordType" Relationship="DBModel.RecordTypeRecord" FromRole="Record" ToRole="RecordType" />
           <NavigationProperty Name="File" Relationship="DBModel.FileRecord" FromRole="Record" ToRole="File" />
-          <NavigationProperty Name="HeaderR" Relationship="DBModel.RecordHeaderRecord" FromRole="Record" ToRole="Record1" />
-          <NavigationProperty Name="DetailR" Relationship="DBModel.RecordHeaderRecord" FromRole="Record1" ToRole="Record" />
-          <NavigationProperty Name="TrailerR" Relationship="DBModel.RecordRecord" FromRole="Record" ToRole="Record1" />
-          <NavigationProperty Name="DetailRR" Relationship="DBModel.RecordRecord" FromRole="Record1" ToRole="Record" />
+          <NavigationProperty Name="RecordsH" Relationship="DBModel.RecordHRecord" FromRole="Record" ToRole="Record1" />
+          <NavigationProperty Name="Record1" Relationship="DBModel.RecordHRecord" FromRole="Record1" ToRole="Record" />
+          <NavigationProperty Name="RecordsT" Relationship="DBModel.RecordTRecord" FromRole="Record" ToRole="Record1" />
+          <NavigationProperty Name="Record2" Relationship="DBModel.RecordTRecord" FromRole="Record1" ToRole="Record" />
           </EntityType>
         <Association Name="RecordTypeRecord">
           <End Type="DBModel.RecordType" Role="RecordType" Multiplicity="1" />
@@ -170,7 +359,19 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="RecordHeaderRecord">
+        <Association Name="FileFile">
+          <End Type="DBModel.File" Role="File" Multiplicity="0..1" />
+          <End Type="DBModel.File" Role="File1" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="File">
+              <PropertyRef Name="FileId" />
+            </Principal>
+            <Dependent Role="File1">
+              <PropertyRef Name="MatchedFileId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="RecordHRecord">
           <End Type="DBModel.Record" Role="Record" Multiplicity="0..1" />
           <End Type="DBModel.Record" Role="Record1" Multiplicity="*" />
           <ReferentialConstraint>
@@ -182,7 +383,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="RecordRecord">
+        <Association Name="RecordTRecord">
           <End Type="DBModel.Record" Role="Record" Multiplicity="0..1" />
           <End Type="DBModel.Record" Role="Record1" Multiplicity="*" />
           <ReferentialConstraint>
@@ -198,13 +399,65 @@
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
-      <Mapping xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs" Space="C-S">
-        <Alias Key="Model" Value="DBModel" />
-        <Alias Key="Target" Value="DBModel.Store" />
-        <EntityContainerMapping CdmEntityContainer="DBModelContainer" StorageEntityContainer="DBModelTargetContainer">
-        </EntityContainerMapping>
-      </Mapping>
-    </edmx:Mappings>
+    <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="DBModelStoreContainer" CdmEntityContainer="DBModelContainer">
+    <EntitySetMapping Name="Files">
+      <EntityTypeMapping TypeName="IsTypeOf(DBModel.File)">
+        <MappingFragment StoreEntitySet="Files">
+          <ScalarProperty Name="FileId" ColumnName="FileId" />
+          <ScalarProperty Name="GatewayId" ColumnName="GatewayId" />
+          <ScalarProperty Name="FileTypeId" ColumnName="FileTypeId" />
+          <ScalarProperty Name="MatchedFileId" ColumnName="MatchedFileId" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="InsertDate" ColumnName="InsertDate" />
+          <ScalarProperty Name="Metadata" ColumnName="Metadata" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="FileTypes">
+      <EntityTypeMapping TypeName="IsTypeOf(DBModel.FileType)">
+        <MappingFragment StoreEntitySet="FileTypes">
+          <ScalarProperty Name="FileTypeId" ColumnName="FileTypeId" />
+          <ScalarProperty Name="Organization" ColumnName="Organization" />
+          <ScalarProperty Name="FType" ColumnName="FType" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="RecordTypes">
+      <EntityTypeMapping TypeName="IsTypeOf(DBModel.RecordType)">
+        <MappingFragment StoreEntitySet="RecordTypes">
+          <ScalarProperty Name="RecordTypeId" ColumnName="RecordTypeId" />
+          <ScalarProperty Name="FileTypeId" ColumnName="FileTypeId" />
+          <ScalarProperty Name="RType" ColumnName="RType" />
+          <ScalarProperty Name="ParseRules" ColumnName="ParseRules" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Gateways">
+      <EntityTypeMapping TypeName="IsTypeOf(DBModel.Gateway)">
+        <MappingFragment StoreEntitySet="Gateways">
+          <ScalarProperty Name="GatewayId" ColumnName="GatewayId" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Metadata" ColumnName="Metadata" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Records">
+      <EntityTypeMapping TypeName="IsTypeOf(DBModel.Record)">
+        <MappingFragment StoreEntitySet="Records">
+          <ScalarProperty Name="RecordId" ColumnName="RecordId" />
+          <ScalarProperty Name="FileId" ColumnName="FileId" />
+          <ScalarProperty Name="RecordTypeId" ColumnName="RecordTypeId" />
+          <ScalarProperty Name="HeaderRecordId" ColumnName="HeaderRecordId" />
+          <ScalarProperty Name="TrailerRecordId" ColumnName="TrailerRecordId" />
+          <ScalarProperty Name="Value" ColumnName="Value" />
+          <ScalarProperty Name="PAN" ColumnName="PAN" />
+          <ScalarProperty Name="ExpiryDate" ColumnName="ExpiryDate" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping></edmx:Mappings>
   </edmx:Runtime>
   <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
@@ -218,6 +471,7 @@
         <DesignerProperty Name="ValidateOnBuild" Value="true" />
         <DesignerProperty Name="EnablePluralization" Value="True" />
         <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+        <DesignerProperty Name="UseLegacyProvider" Value="False" />
       </DesignerInfoPropertySet>
     </edmx:Options>
     <!-- Diagram content (shape and connector positions) -->

@@ -15,8 +15,9 @@
         <EntityTypeShape EntityType="DBModel.Record" Width="1.5" PointX="11.125" PointY="6" />
         <AssociationConnector Association="DBModel.RecordTypeRecord" />
         <AssociationConnector Association="DBModel.FileRecord" />
-        <AssociationConnector Association="DBModel.RecordHeaderRecord" />
-        <AssociationConnector Association="DBModel.RecordRecord" />
+        <AssociationConnector Association="DBModel.FileFile" />
+        <AssociationConnector Association="DBModel.RecordHRecord" />
+        <AssociationConnector Association="DBModel.RecordTRecord" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
