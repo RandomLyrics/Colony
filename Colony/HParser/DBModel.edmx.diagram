@@ -4,12 +4,19 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="6db9fc938aee44209678f9b85ac93260" Name="Diagram1" >
-        <EntityTypeShape EntityType="DBModel.File" Width="1.5" PointX="7.375" PointY="2" />
-        <EntityTypeShape EntityType="DBModel.FileType" PointX="10.125" PointY="1.5" Width="1.5" />
+      <Diagram DiagramId="6db9fc938aee44209678f9b85ac93260" Name="Diagram1" ZoomLevel="97" >
+        <EntityTypeShape EntityType="DBModel.File" Width="1.5" PointX="8.375" PointY="3.125" />
+        <EntityTypeShape EntityType="DBModel.FileType" PointX="11.125" PointY="3.125" Width="1.5" />
         <AssociationConnector Association="DBModel.FileTypeFile" />
-        <EntityTypeShape EntityType="DBModel.RecordType" Width="1.5" PointX="13.125" PointY="1.875" />
+        <EntityTypeShape EntityType="DBModel.RecordType" Width="1.5" PointX="14.375" PointY="3.125" />
         <AssociationConnector Association="DBModel.FileTypeRecordType" />
+        <EntityTypeShape EntityType="DBModel.Gateway" Width="1.5" PointX="5.625" PointY="3.125" />
+        <AssociationConnector Association="DBModel.GatewayFile" />
+        <EntityTypeShape EntityType="DBModel.Record" Width="1.5" PointX="11.125" PointY="6" />
+        <AssociationConnector Association="DBModel.RecordTypeRecord" />
+        <AssociationConnector Association="DBModel.FileRecord" />
+        <AssociationConnector Association="DBModel.RecordHeaderRecord" />
+        <AssociationConnector Association="DBModel.RecordRecord" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
