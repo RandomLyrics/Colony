@@ -4,11 +4,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{86A3C546-4EF6-4814-A182-DBFF9860F79B}</ProjectGuid>
+    <ProjectGuid>{3FB7CC6F-B2EA-465B-8581-E19AA138B21F}</ProjectGuid>
     <OutputType>Exe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Sandbox</RootNamespace>
-    <AssemblyName>Sandbox</AssemblyName>
+    <RootNamespace>HParser</RootNamespace>
+    <AssemblyName>HParser</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
@@ -35,6 +35,8 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -43,41 +45,24 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="DynamicLambda\Example\ExampleRun.cs" />
-    <Compile Include="Examples\Company.cs" />
-    <Compile Include="Examples\OperatorSQLExample.cs" />
-    <Compile Include="Examples\SargerasDC.cs" />
+    <Compile Include="Core\Parser.cs" />
+    <Compile Include="DBModel.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>DBModel.edmx</DependentUpon>
+    </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Utils\CSV.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="DynamicLambda\Engine\" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\CSV\CSVBot.csproj">
-      <Project>{33581C6B-AAC4-4B08-B6F7-BDD20A1B7FDA}</Project>
-      <Name>CSVBot</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Hermes\Hermes.csproj">
-      <Project>{1E4BB99B-F53A-4C19-8AF3-6527DAD727D0}</Project>
-      <Name>Hermes</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\OperatorSQL\OperatorSQL.csproj">
-      <Project>{1ff8d467-c55b-4aa1-b4cf-08a9b2d2cc4a}</Project>
-      <Name>OperatorSQL</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Orion\Orion.csproj">
-      <Project>{447FC95C-E8AF-4433-ADDF-FED2478754CE}</Project>
-      <Name>Orion</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Sargeras\Sargeras.csproj">
-      <Project>{A0308CA1-3B9B-4167-A463-0A211965B43B}</Project>
-      <Name>Sargeras</Name>
-    </ProjectReference>
+    <EntityDeploy Include="DBModel.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>DBModel.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <None Include="DBModel.edmx.diagram">
+      <DependentUpon>DBModel.edmx</DependentUpon>
+    </None>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

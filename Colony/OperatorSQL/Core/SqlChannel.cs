@@ -48,10 +48,9 @@ namespace OperatorSQL.Core
         private SqlCommand _command;
         private SqlDataReader _reader;
 
-        public SqlChannel(string connectionString, string command = null)
+        public SqlChannel(string connectionString)
         {
             _con = new SqlConnection(connectionString);
-            //_command = new SqlCommand(command, _con) ?? null;
             _con.Open();
         }
         
@@ -59,6 +58,13 @@ namespace OperatorSQL.Core
         {
             _command = new SqlCommand(quary, _con);
             return _command.ExecuteReader();
+        }
+
+        public List<T> GetRecords<T>(Query qr) where T: class, new()
+        {
+            qr.Command.Connection = _con;
+            var reader = qr.Command.ExecuteReader();
+            return Mapper.FromReader<T>(reader);
         }
     }
 }

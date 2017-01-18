@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Reflection;
@@ -21,9 +22,9 @@ namespace OperatorSQL.Core
             return _classProperties[type];
         }
 
-        public static IEnumerable<T> FromReader<T>(SqlDataReader reader) where T: class, new()
+        public static List<T> FromReader<T>(SqlDataReader reader) where T: class, new()
         {
-            var list = new Collection<T>();
+            var list = new List<T>();
             while (reader.Read())
             {
                 var obj = new T();
@@ -38,6 +39,8 @@ namespace OperatorSQL.Core
                         var prop = props.FirstOrDefault(x => x.Name == name);
                         if (prop != null)
                             prop.SetValue(obj, value);
+                        //else
+                        //    throw new Exception("Wrong property '" + prop.Name + "'");
                     }
 
                 }
@@ -50,7 +53,20 @@ namespace OperatorSQL.Core
     public static class QueryExtensions
     {
         public static char _separator = ',';
-       // public static char _
+
+        public static Query AddParam(this Query q, string name, SqlDbType dbtype, int val)
+        {
+            var param = new SqlParameter(name, dbtype);
+            param.Value = val;
+            q.Command.Parameters.Add(param);
+            return q;
+        }
+        public static Query AddParam(this Query q, string name, SqlDbType dbtype, string val)
+        {
+            //q._parameters.Add(new SqlParameter(name, dbtype, 5, val));
+            return q;
+        }
+
         public static Query Select(this Query q)
         {
             return q;
@@ -94,17 +110,26 @@ namespace OperatorSQL.Core
 
     public class Query
     {
+        //internal ICollection<SqlParameter> _parameters;
+        public SqlCommand Command { get; private set; }
+
+
         internal StringBuilder _quary = new StringBuilder();
 
-        internal int _colPos;
         internal ICollection<string> _columns = new Collection<string>();
         internal string _from;
         internal ICollection<string> _joins = new Collection<string>();
         internal ICollection<string> _conditions = new Collection<string>();
 
+        public Query(string command)
+        {
+            //_parameters = new Collection<SqlParameter>();
+            Command = new SqlCommand(command);
+        }
+        
+
         public string Build()
         {
-            //_quary.Insert()
             _quary.Clear();
             _quary.Append("SELECT ");
             foreach (var col in _columns)

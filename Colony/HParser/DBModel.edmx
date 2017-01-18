@@ -1,0 +1,111 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl" Namespace="DBModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2005">
+        <EntityContainer Name="DBModelTargetContainer" >
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema xmlns="http://schemas.microsoft.com/ado/2009/11/edm" xmlns:cg="http://schemas.microsoft.com/ado/2006/04/codegeneration" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" Namespace="DBModel" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" annotation:UseStrongSpatialTypes="false">
+        <EntityContainer Name="DBModelContainer" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Files" EntityType="DBModel.File" />
+          <EntitySet Name="FileTypes" EntityType="DBModel.FileType" />
+          <AssociationSet Name="FileTypeFile" Association="DBModel.FileTypeFile">
+            <End Role="FileType" EntitySet="FileTypes" />
+            <End Role="File" EntitySet="Files" />
+          </AssociationSet>
+          <EntitySet Name="RecordTypes" EntityType="DBModel.RecordType" />
+          <AssociationSet Name="FileTypeRecordType" Association="DBModel.FileTypeRecordType">
+            <End Role="FileType" EntitySet="FileTypes" />
+            <End Role="RecordType" EntitySet="RecordTypes" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="File">
+          <Key>
+            <PropertyRef Name="FileId" />
+          </Key>
+          <Property Name="FileTypeId" Type="Int32" Nullable="false" />
+          <Property Name="FileId" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Path" Nullable="false" Type="String" />
+          <NavigationProperty Name="FileType" Relationship="DBModel.FileTypeFile" FromRole="File" ToRole="FileType" />
+        </EntityType>
+        <EntityType Name="FileType">
+          <Key>
+            <PropertyRef Name="FileTypeId" />
+          </Key>
+          <Property Name="FileTypeId" Nullable="false" annotation:StoreGeneratedPattern="Identity" Type="Int32" />
+          <Property Name="Org" Nullable="false" Type="String" />
+          <Property Name="FType" Nullable="false" Type="String" />
+          <NavigationProperty Name="Files" Relationship="DBModel.FileTypeFile" FromRole="FileType" ToRole="File" />
+          <NavigationProperty Name="RecordTypes" Relationship="DBModel.FileTypeRecordType" FromRole="FileType" ToRole="RecordType" />
+        </EntityType>
+        <Association Name="FileTypeFile">
+          <End Type="DBModel.FileType" Role="FileType" Multiplicity="1" />
+          <End Type="DBModel.File" Role="File" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="FileType">
+              <PropertyRef Name="FileTypeId" />
+            </Principal>
+            <Dependent Role="File">
+              <PropertyRef Name="FileTypeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="RecordType">
+          <Key>
+            <PropertyRef Name="RecordTypeId" />
+          </Key>
+          <Property Name="FileTypeId" Type="Int32" Nullable="false" />
+          <Property Name="RecordTypeId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="RType" Type="String" Nullable="false" />
+          <Property Name="ParseRules" Type="String" Nullable="false" />
+          <NavigationProperty Name="FileType" Relationship="DBModel.FileTypeRecordType" FromRole="RecordType" ToRole="FileType" />
+        </EntityType>
+        <Association Name="FileTypeRecordType">
+          <End Type="DBModel.FileType" Role="FileType" Multiplicity="1" />
+          <End Type="DBModel.RecordType" Role="RecordType" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="FileType">
+              <PropertyRef Name="FileTypeId" />
+            </Principal>
+            <Dependent Role="RecordType">
+              <PropertyRef Name="FileTypeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs" Space="C-S">
+        <Alias Key="Model" Value="DBModel" />
+        <Alias Key="Target" Value="DBModel.Store" />
+        <EntityContainerMapping CdmEntityContainer="DBModelContainer" StorageEntityContainer="DBModelTargetContainer">
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <edmx:Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </edmx:Connection>
+    <edmx:Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="True" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </edmx:Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
