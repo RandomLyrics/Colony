@@ -2,8 +2,8 @@
 -- --------------------------------------------------
 -- Entity Designer DDL Script for SQL Server 2005, 2008, 2012 and Azure
 -- --------------------------------------------------
--- Date Created: 01/18/2017 16:57:14
--- Generated from EDMX file: C:\SANDBOX\Colony\Colony\HParser\DBModel.edmx
+-- Date Created: 01/18/2017 23:42:30
+-- Generated from EDMX file: D:\CCCC#\Colony\Colony\HParser\DBModel.edmx
 -- --------------------------------------------------
 
 SET QUOTED_IDENTIFIER OFF;
@@ -32,11 +32,14 @@ GO
 IF OBJECT_ID(N'[dbo].[FK_FileRecord]', 'F') IS NOT NULL
     ALTER TABLE [dbo].[Records] DROP CONSTRAINT [FK_FileRecord];
 GO
-IF OBJECT_ID(N'[dbo].[FK_RecordHeaderRecord]', 'F') IS NOT NULL
-    ALTER TABLE [dbo].[Records] DROP CONSTRAINT [FK_RecordHeaderRecord];
+IF OBJECT_ID(N'[dbo].[FK_FileFile]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[Files] DROP CONSTRAINT [FK_FileFile];
 GO
-IF OBJECT_ID(N'[dbo].[FK_RecordRecord]', 'F') IS NOT NULL
-    ALTER TABLE [dbo].[Records] DROP CONSTRAINT [FK_RecordRecord];
+IF OBJECT_ID(N'[dbo].[FK_RecordHRecord]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[Records] DROP CONSTRAINT [FK_RecordHRecord];
+GO
+IF OBJECT_ID(N'[dbo].[FK_RecordTRecord]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[Records] DROP CONSTRAINT [FK_RecordTRecord];
 GO
 
 -- --------------------------------------------------
@@ -65,9 +68,9 @@ GO
 
 -- Creating table 'Files'
 CREATE TABLE [dbo].[Files] (
+    [FileId] bigint IDENTITY(1,1) NOT NULL,
     [GatewayId] int  NOT NULL,
     [FileTypeId] int  NOT NULL,
-    [FileId] bigint IDENTITY(1,1) NOT NULL,
     [MatchedFileId] bigint  NULL,
     [Name] nvarchar(max)  NOT NULL,
     [InsertDate] nvarchar(max)  NOT NULL,
@@ -85,10 +88,10 @@ GO
 
 -- Creating table 'RecordTypes'
 CREATE TABLE [dbo].[RecordTypes] (
-    [FileTypeId] int  NOT NULL,
     [RecordTypeId] int IDENTITY(1,1) NOT NULL,
+    [FileTypeId] int  NOT NULL,
     [RType] nchar(1)  NOT NULL,
-    [ParseRules] nvarchar(max)  NOT NULL
+    [ParseRules] nvarchar(max)  NULL
 );
 GO
 
@@ -102,14 +105,15 @@ GO
 
 -- Creating table 'Records'
 CREATE TABLE [dbo].[Records] (
+    [RecordId] bigint IDENTITY(1,1) NOT NULL,
     [FileId] bigint  NOT NULL,
     [RecordTypeId] int  NOT NULL,
     [HeaderRecordId] bigint  NULL,
     [TrailerRecordId] bigint  NULL,
-    [RecordId] bigint IDENTITY(1,1) NOT NULL,
     [Value] nchar(120)  NOT NULL,
     [PAN] nvarchar(max)  NOT NULL,
-    [ExpiryDate] nvarchar(max)  NOT NULL
+    [ExpiryDate] nvarchar(max)  NOT NULL,
+    [RecordCount] nvarchar(max)  NOT NULL
 );
 GO
 

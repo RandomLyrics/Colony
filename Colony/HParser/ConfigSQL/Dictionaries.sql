@@ -47,10 +47,10 @@ INSERT INTO [dbo].[RecordTypes]([FileTypeId],[RType],[ParseRules])
 INSERT INTO [dbo].[RecordTypes]([FileTypeId],[RType],[ParseRules])
      VALUES
            ((select max(FileTypeId) from dbo.FileTypes where Organization = 'MC' and FType = 'REQUEST')
-           ,'H'
+           ,'1'
            ,null),
 		   ((select max(FileTypeId) from dbo.FileTypes where Organization = 'MC' and FType = 'REQUEST')
-           ,'D'
+           ,'2'
            ,'17 19 PAN; 36 6 ExpiryDate'),
 		   ((select max(FileTypeId) from dbo.FileTypes where Organization = 'MC' and FType = 'REQUEST')
            ,'T'
@@ -59,13 +59,22 @@ INSERT INTO [dbo].[RecordTypes]([FileTypeId],[RType],[ParseRules])
 INSERT INTO [dbo].[RecordTypes]([FileTypeId],[RType],[ParseRules])
      VALUES
            ((select max(FileTypeId) from dbo.FileTypes where Organization = 'MC' and FType = 'RESPONSE')
-           ,'H'
+           ,'1'
            ,null),
 		   ((select max(FileTypeId) from dbo.FileTypes where Organization = 'MC' and FType = 'RESPONSE')
-           ,'D'
+           ,'2'
            ,'17 19 PAN; 36 6 ExpiryDate'),
 		   ((select max(FileTypeId) from dbo.FileTypes where Organization = 'MC' and FType = 'RESPONSE')
            ,'T'
            ,'13 9 RecordCount')
 
 --MC
+
+
+--CLEAR TABLES
+DELETE FROM dbo.Gateways  
+DBCC CHECKIDENT ([dbo.Gateways], RESEED, 0)
+DELETE FROM dbo.RecordTypes   
+DBCC CHECKIDENT ([dbo.RecordTypes], RESEED, 0)
+DELETE FROM dbo.FileTypes    
+DBCC CHECKIDENT ([dbo.FileTypes], RESEED, 0)

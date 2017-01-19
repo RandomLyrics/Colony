@@ -29,6 +29,7 @@ namespace HParser
         public string Value { get; set; }
         public string PAN { get; set; }
         public string ExpiryDate { get; set; }
+        public string RecordCount { get; set; }
     
         public virtual RecordType RecordType { get; set; }
         public virtual File File { get; set; }
