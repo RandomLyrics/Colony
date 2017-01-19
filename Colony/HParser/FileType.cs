@@ -24,6 +24,7 @@ namespace HParser
         public int FileTypeId { get; set; }
         public string Organization { get; set; }
         public string FType { get; set; }
+        public string TypeName { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<File> Files { get; set; }

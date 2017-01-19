@@ -63,6 +63,7 @@
     <Property Name="FileTypeId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="Organization" Type="nvarchar(max)" Nullable="false" />
     <Property Name="FType" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="TypeName" Type="nvarchar(max)" Nullable="false" />
   </EntityType>
   <EntityType Name="RecordTypes">
     <Key>
@@ -91,9 +92,9 @@
     <Property Name="HeaderRecordId" Type="bigint" Nullable="true" />
     <Property Name="TrailerRecordId" Type="bigint" Nullable="true" />
     <Property Name="Value" Type="nchar" Nullable="false" MaxLength="120" />
-    <Property Name="PAN" Type="nvarchar(max)" Nullable="false" />
-    <Property Name="ExpiryDate" Type="nvarchar(max)" Nullable="false" />
-    <Property Name="RecordCount" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="PAN" Type="nvarchar(max)" Nullable="true" />
+    <Property Name="ExpiryDate" Type="nvarchar(max)" Nullable="true" />
+    <Property Name="RecordCount" Type="nvarchar(max)" Nullable="true" />
   </EntityType>
   <Association Name="FileTypeFile">
     <End Role="FileType" Type="DBModel.Store.FileTypes" Multiplicity="1" />
@@ -260,6 +261,7 @@
           <Property Name="FType" Nullable="false" Type="String" />
           <NavigationProperty Name="Files" Relationship="DBModel.FileTypeFile" FromRole="FileType" ToRole="File" />
           <NavigationProperty Name="RecordTypes" Relationship="DBModel.FileTypeRecordType" FromRole="FileType" ToRole="RecordType" />
+          <Property Name="TypeName" Type="String" Nullable="false" />
         </EntityType>
         <Association Name="FileTypeFile">
           <End Type="DBModel.FileType" Role="FileType" Multiplicity="1" />
@@ -327,15 +329,15 @@
           <Property Name="HeaderRecordId" Type="Int64" Nullable="true" />
           <Property Name="TrailerRecordId" Type="Int64" Nullable="true" />
           <Property Name="Value" Type="String" Nullable="false" FixedLength="true" MaxLength="120" />
-          <Property Name="PAN" Type="String" Nullable="false" />
-          <Property Name="ExpiryDate" Type="String" Nullable="false" />
+          <Property Name="PAN" Type="String" Nullable="true" />
+          <Property Name="ExpiryDate" Type="String" Nullable="true" />
           <NavigationProperty Name="RecordType" Relationship="DBModel.RecordTypeRecord" FromRole="Record" ToRole="RecordType" />
           <NavigationProperty Name="File" Relationship="DBModel.FileRecord" FromRole="Record" ToRole="File" />
           <NavigationProperty Name="RecordsH" Relationship="DBModel.RecordHRecord" FromRole="Record" ToRole="Record1" />
           <NavigationProperty Name="Record1" Relationship="DBModel.RecordHRecord" FromRole="Record1" ToRole="Record" />
           <NavigationProperty Name="RecordsT" Relationship="DBModel.RecordTRecord" FromRole="Record" ToRole="Record1" />
           <NavigationProperty Name="Record2" Relationship="DBModel.RecordTRecord" FromRole="Record1" ToRole="Record" />
-          <Property Name="RecordCount" Type="String" Nullable="false" />
+          <Property Name="RecordCount" Type="String" Nullable="true" />
           </EntityType>
         <Association Name="RecordTypeRecord">
           <End Type="DBModel.RecordType" Role="RecordType" Multiplicity="1" />
@@ -422,6 +424,7 @@
           <ScalarProperty Name="FileTypeId" ColumnName="FileTypeId" />
           <ScalarProperty Name="Organization" ColumnName="Organization" />
           <ScalarProperty Name="FType" ColumnName="FType" />
+          <ScalarProperty Name="TypeName" ColumnName="TypeName" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>

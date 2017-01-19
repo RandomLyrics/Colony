@@ -5,6 +5,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Configuration;
 
 namespace HParser
 {
@@ -24,6 +25,20 @@ namespace HParser
 
         static void Main(string[] args)
         {
+            if (args[0] == "setup")
+            {
+                var inputPath = ConfigurationManager.AppSettings["InputPath"];
+                var outputPath = ConfigurationManager.AppSettings["OutputPath"];
+
+                if (!Directory.Exists(inputPath))
+                    Directory.CreateDirectory(inputPath);
+                if (!Directory.Exists(outputPath))
+                    Directory.CreateDirectory(outputPath);
+
+
+                //var dd = new SqlDB()
+                List<string> gatewayNames = DB.
+            }
             var ss = "1 2 GG;3 4 AA;".Split(';');
             var aaa = ss[1].Split(' ');
 

@@ -2,8 +2,8 @@
 -- --------------------------------------------------
 -- Entity Designer DDL Script for SQL Server 2005, 2008, 2012 and Azure
 -- --------------------------------------------------
--- Date Created: 01/18/2017 23:42:30
--- Generated from EDMX file: D:\CCCC#\Colony\Colony\HParser\DBModel.edmx
+-- Date Created: 01/19/2017 14:49:35
+-- Generated from EDMX file: C:\SANDBOX\Colony\Colony\HParser\DBModel.edmx
 -- --------------------------------------------------
 
 SET QUOTED_IDENTIFIER OFF;
@@ -82,7 +82,8 @@ GO
 CREATE TABLE [dbo].[FileTypes] (
     [FileTypeId] int IDENTITY(1,1) NOT NULL,
     [Organization] nvarchar(max)  NOT NULL,
-    [FType] nvarchar(max)  NOT NULL
+    [FType] nvarchar(max)  NOT NULL,
+    [TypeName] nvarchar(max)  NOT NULL
 );
 GO
 
@@ -111,9 +112,9 @@ CREATE TABLE [dbo].[Records] (
     [HeaderRecordId] bigint  NULL,
     [TrailerRecordId] bigint  NULL,
     [Value] nchar(120)  NOT NULL,
-    [PAN] nvarchar(max)  NOT NULL,
-    [ExpiryDate] nvarchar(max)  NOT NULL,
-    [RecordCount] nvarchar(max)  NOT NULL
+    [PAN] nvarchar(max)  NULL,
+    [ExpiryDate] nvarchar(max)  NULL,
+    [RecordCount] nvarchar(max)  NULL
 );
 GO
 

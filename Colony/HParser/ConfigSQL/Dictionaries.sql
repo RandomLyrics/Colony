@@ -1,6 +1,14 @@
 ﻿USE [VAUABU]
 GO
 
+--CLEAR TABLES
+DELETE FROM dbo.Gateways  
+DBCC CHECKIDENT ([dbo.Gateways], RESEED, 0)
+DELETE FROM dbo.RecordTypes   
+DBCC CHECKIDENT ([dbo.RecordTypes], RESEED, 0)
+DELETE FROM dbo.FileTypes    
+DBCC CHECKIDENT ([dbo.FileTypes], RESEED, 0)
+
 --GATEWAYS
 INSERT INTO [dbo].[Gateways]([Name],[Metadata])
      VALUES
@@ -10,14 +18,40 @@ INSERT INTO [dbo].[Gateways]([Name],[Metadata])
 		   ('Nestpay', null)
 
 --FILETYPES
-INSERT INTO [dbo].[FileTypes] ([Organization],[FType])
+INSERT INTO [dbo].[FileTypes] ([Organization],[FType],[TypeName])
      VALUES
-           ('VISA' , 'REQUEST'),
-		   ('VISA' , 'RESPONSE'),
-		   ('MC' , 'REQUEST'),
-		   ('MC' , 'RESPONSE')
+           ('VISA' , 'REQUEST', ''),
+		   ('VISA' , 'RESPONSE', ''),
+		   ('MC' , 'REQUEST', 'R611'),
+		   ('MC' , 'RESPONSE', 'T612'),
+		   ('TEST', 'REQUEST', 'T001'),
+		   ('TEST', 'RESPONSE', 'T002')
 
 --PARSERULES
+--TEST
+INSERT INTO [dbo].[RecordTypes]([FileTypeId],[RType],[ParseRules])
+     VALUES
+           ((select max(FileTypeId) from dbo.FileTypes where Organization = 'TEST' and FType = 'REQUEST')
+           ,'['
+           ,null),
+		   ((select max(FileTypeId) from dbo.FileTypes where Organization = 'TEST' and FType = 'REQUEST')
+           ,'|'
+           ,'1 6 PAN'),
+		   ((select max(FileTypeId) from dbo.FileTypes where Organization = 'TEST' and FType = 'REQUEST')
+           ,']'
+           ,'')
+INSERT INTO [dbo].[RecordTypes]([FileTypeId],[RType],[ParseRules])
+     VALUES
+           ((select max(FileTypeId) from dbo.FileTypes where Organization = 'TEST' and FType = 'RESPONSE')
+           ,'['
+           ,null),
+		   ((select max(FileTypeId) from dbo.FileTypes where Organization = 'TEST' and FType = 'RESPONSE')
+           ,'|'
+           ,'1 6 PAN'),
+		   ((select max(FileTypeId) from dbo.FileTypes where Organization = 'TEST' and FType = 'RESPONSE')
+           ,']'
+           ,'')
+
 --VISA
 INSERT INTO [dbo].[RecordTypes]([FileTypeId],[RType],[ParseRules])
      VALUES
@@ -71,10 +105,3 @@ INSERT INTO [dbo].[RecordTypes]([FileTypeId],[RType],[ParseRules])
 --MC
 
 
---CLEAR TABLES
-DELETE FROM dbo.Gateways  
-DBCC CHECKIDENT ([dbo.Gateways], RESEED, 0)
-DELETE FROM dbo.RecordTypes   
-DBCC CHECKIDENT ([dbo.RecordTypes], RESEED, 0)
-DELETE FROM dbo.FileTypes    
-DBCC CHECKIDENT ([dbo.FileTypes], RESEED, 0)
