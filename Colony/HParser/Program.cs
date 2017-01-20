@@ -25,10 +25,11 @@ namespace HParser
 
         static void Main(string[] args)
         {
+            var sps = int.Parse(" 55");
             if (args[0] == "setup")
             {
-                var inputPath = ConfigurationManager.AppSettings["InputPath"];
-                var outputPath = ConfigurationManager.AppSettings["OutputPath"];
+                var inputPath = GetConfigurationValue("InputPath");
+                var outputPath = GetConfigurationValue("OutputPath");
 
                 if (!Directory.Exists(inputPath))
                     Directory.CreateDirectory(inputPath);
@@ -37,7 +38,7 @@ namespace HParser
 
 
                 //var dd = new SqlDB()
-                List<string> gatewayNames = DB.
+               // List<string> gatewayNames = DB.
             }
             var ss = "1 2 GG;3 4 AA;".Split(';');
             var aaa = ss[1].Split(' ');
@@ -96,6 +97,17 @@ namespace HParser
             var y = int.Parse(r[1]);
             var c = y - x + 1;
             return l.Substring(x, c);
+        }
+
+        public static string GetConfigurationValue(string pstrKey)
+        {
+            var configurationValue = ConfigurationManager.AppSettings[pstrKey];
+            if (!string.IsNullOrWhiteSpace(configurationValue))
+                return configurationValue;
+
+            throw (new ApplicationException(
+                "Configuration Tag is missing web.config. It should contain   <add key=\"" + pstrKey + "\" value=\"?\"/>"));
+
         }
     }
 }
